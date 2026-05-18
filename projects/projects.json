@@ -1,0 +1,60 @@
+[
+    {
+        "id": "custom-search-shortcuts",
+        "title": "Custom Search Shortcuts",
+        "tagline": "A Chrome extension for customizable right-click search shortcuts.",
+        "description": "A Chrome extension that adds customizable search shortcuts to your right-click context menu. Quickly search selected text across multiple search engines and websites with support for environment variables and dynamic URL templates.",
+        "icon": "fas fa-search",
+        "featured": true,
+        "tags": [
+            "Chrome Extension",
+            "Manifest V3",
+            "JavaScript",
+            "Context Menu",
+            "MIT License"
+        ],
+        "github": "https://github.com/dvinay/custom_search_shortcuts",
+        "features": [
+            {
+                "icon": "fas fa-puzzle-piece",
+                "title": "Core Features",
+                "description": "Custom search engines, environment variables, dynamic URL templates with {{variable}} syntax, right-click integration."
+            },
+            {
+                "icon": "fas fa-folder",
+                "title": "Organization",
+                "description": "Categories with emoji icons, drag-and-drop reordering, context menu separators, nested submenus."
+            },
+            {
+                "icon": "fas fa-star",
+                "title": "Favorites",
+                "description": "Pin shortcuts to top of context menu and popup. Toggle favorites from options page. Category-aware pinning."
+            },
+            {
+                "icon": "fas fa-bolt",
+                "title": "Productivity",
+                "description": "Duplicate shortcuts, popup quick access, new tab positioning, import/export configs."
+            },
+            {
+                "icon": "fas fa-shield-alt",
+                "title": "Safety",
+                "description": "Trash with undo delete (Gmail-style), configurable retention, one-click restore."
+            },
+            {
+                "icon": "fas fa-palette",
+                "title": "Appearance",
+                "description": "Dark/light/system theme toggle. Settings page for theme, trash retention, tab position, and default category."
+            }
+        ],
+        "sections": [
+            {
+                "heading": "How It Works",
+                "content": "Install the extension, add your favorite search engines and websites, and right-click any selected text to instantly search across them. Use environment variables and dynamic URL templates for powerful, context-aware searches."
+            },
+            {
+                "heading": "Tech Stack",
+                "content": "Built with Chrome Extension Manifest V3, vanilla JavaScript, Chrome Storage API, and Context Menu API. No external frameworks — lightweight and fast."
+            }
+        ]
+    }
+]

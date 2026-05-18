@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinay Duvvada — Developer, Blogger, Builder</title>
+    <meta name="description" content="I build things for the web, write about software engineering, and tinker with hobby projects. Welcome to my corner of the internet.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <nav class="navbar">
+            <a href="index.html" class="logo">V<span class="logo-dot">.</span></a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="active">Home</a>
+                <a href="blog.html">Blog</a>
+                <a href="projects.html">Projects</a>
+                <a href="about.html">About</a>
+            </div>
+            <button class="theme-toggle" aria-label="Dark theme" title="Dark"><i class="fas fa-moon"></i></button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <p class="hero-greeting">Hello, I'm</p>
+            <h1 class="hero-name">Vinay Duvvada</h1>
+            <p class="hero-tagline">Staff Software Engineer &bull; Blogger &bull; Builder</p>
+            <p class="hero-description">
+                I build things for the web, write about software engineering, and tinker with hobby projects. 
+                Welcome to my corner of the internet.
+            </p>
+            <div class="hero-cta">
+                <a href="blog.html" class="btn btn-primary">Read the Blog</a>
+                <a href="projects.html" class="btn btn-outline">View Projects</a>
+            </div>
+            <div class="hero-social">
+                <a href="https://github.com/dvinay" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/vinayduvvada" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:vinay.chowdary518@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+        <div class="hero-decoration" aria-hidden="true"></div>
+    </section>
+
+    <!-- Recent Posts Section -->
+    <section class="section" id="recentPosts">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Recent Posts</h2>
+                <a href="blog.html" class="section-link">View all posts <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="posts-grid" id="postsContainer">
+                <!-- Posts will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects Section -->
+    <section class="section section-alt" id="featuredProjects">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Hobby Projects</h2>
+                <a href="projects.html" class="section-link">View all projects <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card featured">
+                    <div class="project-card-inner">
+                        <div class="project-icon"><i class="fas fa-search"></i></div>
+                        <h3>Custom Search Shortcuts</h3>
+                        <p>A Chrome extension for customizable right-click search shortcuts with environment variables, categories, favorites, drag-and-drop, dark mode, and more.</p>
+                        <div class="project-tags">
+                            <span>Chrome Extension</span>
+                            <span>Manifest V3</span>
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/dvinay/custom_search_shortcuts" target="_blank" rel="noopener"><i class="fab fa-github"></i> Source</a>
+                            <a href="project.html?id=custom-search-shortcuts"><i class="fas fa-arrow-right"></i> Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="footer-logo">V<span class="logo-dot">.</span></a>
+                <p>Building, writing, and sharing — one commit at a time.</p>
+            </div>
+            <div class="footer-nav">
+                <h4>Navigate</h4>
+                <a href="index.html">Home</a>
+                <a href="blog.html">Blog</a>
+                <a href="projects.html">Projects</a>
+                <a href="about.html">About</a>
+            </div>
+            <div class="footer-social">
+                <h4>Connect</h4>
+                <div class="social-icons">
+                    <a href="https://github.com/dvinay" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/vinayduvvada" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:vinay.chowdary518@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Vinay Duvvada. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

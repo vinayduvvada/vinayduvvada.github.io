@@ -1,0 +1,134 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PROJECT_ROOT="$(pwd)"
+POSTS_DIR="$PROJECT_ROOT/posts"
+REGISTRY_FILE="$POSTS_DIR/posts.json"
+
+if [[ ! -d "$POSTS_DIR" ]]; then
+  echo "Error: posts/ folder not found. Run this from the project root." 1>&2
+  exit 1
+fi
+
+json_escape() {
+  printf '%s' "$1" | sed -e 's/\\/\\\\/g' -e 's/"/\\"/g'
+}
+
+slugify() {
+  printf '%s' "$1" \
+    | tr '[:upper:]' '[:lower:]' \
+    | sed -E "s/[\'\"\`]+//g; s/[^a-z0-9]+/-/g; s/^-+//; s/-+$//; s/-{2,}/-/g"
+}
+
+read -r -p "Post title: " TITLE
+TITLE="${TITLE## }"
+TITLE="${TITLE%% }"
+
+if [[ -z "${TITLE}" ]]; then
+  echo "Error: title is required." 1>&2
+  exit 1
+fi
+
+read -r -p "Post id/slug (leave blank to auto-generate): " SLUG_IN
+ID="$(slugify "${SLUG_IN:-$TITLE}")"
+
+if [[ -z "${ID}" ]]; then
+  echo "Error: could not generate a valid post id." 1>&2
+  exit 1
+fi
+
+read -r -p "Excerpt (optional): " EXCERPT
+read -r -p "Read time (default: 5 min read): " READ_TIME
+READ_TIME="${READ_TIME:-5 min read}"
+read -r -p "Tags (comma-separated, optional): " TAGS_RAW
+
+POST_DIR="$POSTS_DIR/$ID"
+
+if [[ -e "$POST_DIR" ]]; then
+  echo "Error: posts/$ID already exists." 1>&2
+  exit 1
+fi
+
+mkdir -p "$POST_DIR"
+
+DATE_STR="$(date +"%B %-d, %Y" 2>/dev/null || date +"%B %d, %Y")"
+
+TITLE_ESC="$(json_escape "$TITLE")"
+EXCERPT_ESC="$(json_escape "$EXCERPT")"
+READ_TIME_ESC="$(json_escape "$READ_TIME")"
+
+TAGS_JSON="[]"
+if [[ -n "${TAGS_RAW}" ]]; then
+  IFS=',' read -r -a TAGS_ARR <<< "$TAGS_RAW"
+  TAGS_JSON="["
+  FIRST=1
+  for TAG in "${TAGS_ARR[@]}"; do
+    TAG_TRIM="$(printf '%s' "$TAG" | sed -E 's/^ +//; s/ +$//')"
+    if [[ -z "$TAG_TRIM" ]]; then
+      continue
+    fi
+    TAG_ESC="$(json_escape "$TAG_TRIM")"
+    if [[ $FIRST -eq 1 ]]; then
+      FIRST=0
+    else
+      TAGS_JSON+=", "
+    fi
+    TAGS_JSON+="\"$TAG_ESC\""
+  done
+  TAGS_JSON+="]"
+fi
+
+cat > "$POST_DIR/metadata.json" <<EOF
+{
+  "id": "${ID}",
+  "title": "${TITLE_ESC}",
+  "excerpt": "${EXCERPT_ESC}",
+  "date": "${DATE_STR}",
+  "readTime": "${READ_TIME_ESC}",
+  "coverImage": "cover.jpg",
+  "tags": ${TAGS_JSON}
+}
+EOF
+
+cat > "$POST_DIR/index.md" <<EOF
+# ${TITLE}
+
+Write your post here.
+EOF
+
+# Update posts registry (posts/posts.json)
+if [[ ! -f "$REGISTRY_FILE" ]]; then
+  echo "[]" > "$REGISTRY_FILE"
+fi
+
+# Extract ids from existing registry (one per line)
+EXISTING_IDS="$(sed -nE 's/^[[:space:]]*"([^"]+)"[[:space:]]*,?[[:space:]]*$/\1/p' "$REGISTRY_FILE" || true)"
+
+if printf '%s\n' "$EXISTING_IDS" | grep -Fxq "$ID"; then
+  :
+else
+  TMP_FILE="$REGISTRY_FILE.tmp"
+  {
+    echo "["
+    echo "  \"$ID\","
+    if [[ -n "$EXISTING_IDS" ]]; then
+      mapfile -t IDS_LINES <<< "$EXISTING_IDS"
+      LAST_INDEX=$((${#IDS_LINES[@]} - 1))
+      for i in "${!IDS_LINES[@]}"; do
+        LINE="${IDS_LINES[$i]}"
+        if [[ $i -eq $LAST_INDEX ]]; then
+          echo "  \"$LINE\""
+        else
+          echo "  \"$LINE\","
+        fi
+      done
+    fi
+    echo "]"
+  } > "$TMP_FILE"
+  mv "$TMP_FILE" "$REGISTRY_FILE"
+fi
+
+echo "Created posts/${ID}/metadata.json"
+echo "Created posts/${ID}/index.md"
+echo "Updated posts/posts.json"
+echo "Next: add a cover image at posts/${ID}/cover.jpg (or update coverImage in metadata.json)"
