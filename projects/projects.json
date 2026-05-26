@@ -13,7 +13,7 @@
             "Context Menu",
             "MIT License"
         ],
-        "github": "https://github.com/dvinay/custom_search_shortcuts",
+        "github": "https://github.com/vinayduvvada/custom_search_shortcuts",
         "features": [
             {
                 "icon": "fas fa-puzzle-piece",
@@ -54,6 +54,53 @@
             {
                 "heading": "Tech Stack",
                 "content": "Built with Chrome Extension Manifest V3, vanilla JavaScript, Chrome Storage API, and Context Menu API. No external frameworks — lightweight and fast."
+            }
+        ]
+    },
+    {
+        "id": "tab-stack",
+        "title": "TabStack",
+        "tagline": "Stack up and launch your daily tabs with one click.",
+        "description": "A Chrome extension that lets you save a list of URLs and open them all at once with a single click. Features dark/light/system theme, live URL count badge, favicon previews, and configurable tab launch behavior.",
+        "icon": "fas fa-layer-group",
+        "featured": false,
+        "tags": [
+            "Chrome Extension",
+            "Manifest V3",
+            "JavaScript",
+            "Productivity"
+        ],
+        "github": "https://github.com/vinayduvvada/tab_stack",
+        "features": [
+            {
+                "icon": "fas fa-rocket",
+                "title": "One-Click Launch",
+                "description": "Open all your saved URLs at once with a single click — in a new window or existing window."
+            },
+            {
+                "icon": "fas fa-list",
+                "title": "Editable URL List",
+                "description": "Manage your URLs one per line with comment support (lines starting with #). Only http/https URLs are accepted."
+            },
+            {
+                "icon": "fas fa-eye",
+                "title": "URL Preview",
+                "description": "Live favicon previews in the popup so you can see what you're about to open before launching."
+            },
+            {
+                "icon": "fas fa-palette",
+                "title": "Theme & UX",
+                "description": "Dark/light/system theme toggle, toast notifications, live URL count badge, and modern card-based UI with toggle switches."
+            }
+        ],
+        "sections": [
+            {
+                "heading": "How It Works",
+                "content": "Add your daily URLs to the list, configure launch settings (new window, delay between tabs, focus first tab), and click Open Tabs. Settings sync across devices via chrome.storage.sync."
+            },
+            {
+                "heading": "Tech Stack",
+                "content": "Chrome Extension Manifest V3, vanilla JavaScript, Chrome Storage Sync API. No external frameworks — lightweight and fast."
             }
         ]
     }
