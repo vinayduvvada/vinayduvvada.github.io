@@ -90,6 +90,7 @@ async function loadProject() {
             '</div>' +
             '<div class="project-detail-actions">' +
             (project.github ? '<a href="' + project.github + '" target="_blank" rel="noopener" class="btn btn-primary"><i class="fab fa-github"></i> View on GitHub</a>' : '') +
+            (project.download ? '<a href="' + project.download + '" target="_blank" rel="noopener" class="btn btn-outline"><i class="fas fa-download"></i> Download</a>' : '') +
             (project.demo ? '<a href="' + project.demo + '" target="_blank" rel="noopener" class="btn btn-outline"><i class="fas fa-external-link-alt"></i> Live Demo</a>' : '') +
             '</div>' +
             '</div>' +
