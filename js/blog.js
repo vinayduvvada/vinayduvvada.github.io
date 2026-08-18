@@ -19,7 +19,7 @@ async function loadPosts() {
             postIds = await res.json();
         } catch (err) {
             console.error('Error loading posts registry:', err);
-            postIds = ['getting-started-with-modern-javascript', 'css-grid-layout'];
+            postIds = ['event-driven-architecture-patterns', 'distributed-systems-consistency-models', 'microservices-vs-monolith', 'load-balancer-deep-dive'];
         }
 
         const loaded = await Promise.all(

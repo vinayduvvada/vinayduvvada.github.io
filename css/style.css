@@ -274,6 +274,19 @@ img {
     transform: translateY(-2px);
 }
 
+.btn-chrome {
+    background: #4285f4;
+    color: #fff;
+    border-color: #4285f4;
+}
+
+.btn-chrome:hover {
+    background: #3367d6;
+    border-color: #3367d6;
+    box-shadow: 0 4px 20px rgba(66, 133, 244, 0.35);
+    transform: translateY(-2px);
+}
+
 /* ============================================
    HERO SECTION
    ============================================ */
@@ -957,6 +970,28 @@ img {
     line-height: 1.6;
 }
 
+.timeline-content ul {
+    list-style: none;
+    margin-top: 0.5rem;
+    padding: 0;
+}
+
+.timeline-content ul li {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    padding: 0.25rem 0;
+    line-height: 1.6;
+    padding-left: 1.25rem;
+    position: relative;
+}
+
+.timeline-content ul li::before {
+    content: '\25B8';
+    color: var(--primary);
+    position: absolute;
+    left: 0;
+}
+
 /* ============================================
    PROJECT CARD LINK & BADGES
    ============================================ */
@@ -1239,5 +1274,444 @@ img {
     .btn {
         width: 100%;
         justify-content: center;
+    }
+}
+
+/* ============================================
+   SPINNER / LOADING STATES
+   ============================================ */
+.spinner {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.projects-loading,
+.github-loading {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* ============================================
+   NETFLIX-STYLE CARD BANNER (projects grid)
+   ============================================ */
+.netflix-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.netflix-card .project-card-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.project-card-banner {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--bg-elevated);
+    flex-shrink: 0;
+}
+
+.project-card-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+    display: block;
+}
+
+.netflix-card:hover .project-card-banner img {
+    transform: scale(1.06);
+}
+
+.project-card-banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.6) 100%);
+    pointer-events: none;
+}
+
+.project-card-banner--icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--bg-elevated) 0%, rgba(229,9,20,0.08) 100%);
+    aspect-ratio: 16 / 9;
+}
+
+.project-card-banner--icon i {
+    font-size: 3rem;
+    color: var(--primary);
+    opacity: 0.6;
+}
+
+/* Remove bottom margin on project-icon inside netflix cards
+   (icon is only shown in fallback / no-image state) */
+.netflix-card .project-icon {
+    margin-bottom: 0;
+}
+
+/* ============================================
+   NETFLIX CARD IMAGE STRIP (thumbnail row)
+   ============================================ */
+.project-card-images {
+    display: flex;
+    gap: 4px;
+    padding: 0 0 0.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.project-card-images::-webkit-scrollbar {
+    display: none;
+}
+
+.project-card-img-item {
+    flex: 0 0 72px;
+    height: 48px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: border-color var(--transition);
+}
+
+.project-card-img-item:hover {
+    border-color: var(--primary);
+}
+
+.project-card-img-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ============================================
+   GITHUB LINK ICON IN CARD FOOTER
+   ============================================ */
+.project-github-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 1rem;
+    text-decoration: none;
+    transition: color var(--transition), border-color var(--transition);
+    flex-shrink: 0;
+}
+
+.project-github-link:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.project-chrome-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 1rem;
+    text-decoration: none;
+    transition: color var(--transition), border-color var(--transition);
+    flex-shrink: 0;
+}
+
+.project-chrome-link:hover {
+    color: #4285f4;
+    border-color: #4285f4;
+}
+
+/* project-links row alignment */
+.project-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* ============================================
+   PROJECT DETAIL GALLERY (screenshots section)
+   ============================================ */
+.project-gallery {
+    margin-top: 3rem;
+}
+
+.project-gallery-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-bright);
+    margin-bottom: 1.25rem;
+}
+
+.project-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+}
+
+.project-gallery-item {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    aspect-ratio: 16 / 10;
+    background: var(--bg-elevated);
+}
+
+.project-gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.project-gallery-item:hover img {
+    transform: scale(1.05);
+    filter: brightness(0.75);
+}
+
+.project-gallery-zoom {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity var(--transition);
+    font-size: 1.5rem;
+    color: #fff;
+    pointer-events: none;
+}
+
+.project-gallery-item:hover .project-gallery-zoom {
+    opacity: 1;
+}
+
+/* ============================================
+   LIGHTBOX
+   ============================================ */
+.img-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.img-lightbox.open {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.img-lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(4px);
+}
+
+.img-lightbox-content {
+    position: relative;
+    z-index: 1;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-lightbox-content img {
+    max-width: 90vw;
+    max-height: 85vh;
+    border-radius: var(--radius);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.8);
+    display: block;
+}
+
+.img-lightbox-close {
+    position: absolute;
+    top: -2.5rem;
+    right: 0;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    opacity: 0.8;
+    transition: opacity var(--transition);
+}
+
+.img-lightbox-close:hover {
+    opacity: 1;
+}
+
+/* ============================================
+   README SECTION (project detail)
+   ============================================ */
+.project-readme {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+}
+
+.project-readme-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-bright);
+    margin-bottom: 1.5rem;
+}
+
+.project-readme-body {
+    color: var(--text);
+    line-height: 1.8;
+    font-size: 0.97rem;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4 {
+    color: var(--text-bright);
+    margin: 1.8rem 0 0.75rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.markdown-body h1 { font-size: 1.6rem; }
+.markdown-body h2 { font-size: 1.3rem; border-bottom: 1px solid var(--border); padding-bottom: 0.4rem; }
+.markdown-body h3 { font-size: 1.1rem; }
+.markdown-body h4 { font-size: 1rem; }
+
+.markdown-body p {
+    margin: 0 0 1rem;
+    color: var(--text);
+}
+
+.markdown-body ul,
+.markdown-body ol {
+    padding-left: 1.5rem;
+    margin: 0 0 1rem;
+}
+
+.markdown-body li {
+    margin-bottom: 0.35rem;
+    color: var(--text);
+}
+
+.markdown-body a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.markdown-body a:hover {
+    text-decoration: underline;
+}
+
+.markdown-body code {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.15em 0.4em;
+    font-size: 0.875em;
+    font-family: 'SFMono-Regular', Consolas, monospace;
+    color: var(--primary);
+}
+
+.markdown-body pre {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    overflow-x: auto;
+    margin: 0 0 1.25rem;
+}
+
+.markdown-body pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--text);
+    font-size: 0.875rem;
+}
+
+.markdown-body blockquote {
+    border-left: 3px solid var(--primary);
+    margin: 0 0 1rem;
+    padding: 0.5rem 0 0.5rem 1.25rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.markdown-body img {
+    max-width: 100%;
+    border-radius: var(--radius);
+    display: block;
+    margin: 1rem auto;
+}
+
+.markdown-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.25rem;
+    font-size: 0.9rem;
+}
+
+.markdown-body th,
+.markdown-body td {
+    padding: 0.6rem 0.9rem;
+    border: 1px solid var(--border);
+    text-align: left;
+}
+
+.markdown-body th {
+    background: var(--bg-elevated);
+    color: var(--text-bright);
+    font-weight: 600;
+}
+
+.markdown-body hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1.5rem 0;
+}
+
+/* Responsive gallery */
+@media (max-width: 640px) {
+    .project-gallery-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .project-card-banner {
+        aspect-ratio: 4 / 3;
     }
 }

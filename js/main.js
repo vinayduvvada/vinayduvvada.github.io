@@ -1,5 +1,6 @@
-// Homepage — loads recent posts and handles nav
+// Homepage — loads recent posts, hobby projects, and handles nav
 const postsContainer = document.getElementById('postsContainer');
+const homepageProjectsContainer = document.getElementById('homepageProjectsContainer');
 
 // Load posts data from registry
 async function loadPosts() {
@@ -11,7 +12,7 @@ async function loadPosts() {
             postIds = await res.json();
         } catch (err) {
             console.error('Error loading posts registry:', err);
-            postIds = ['getting-started-with-modern-javascript', 'css-grid-layout'];
+            postIds = ['event-driven-architecture-patterns', 'distributed-systems-consistency-models', 'microservices-vs-monolith', 'load-balancer-deep-dive'];
         }
 
         const loaded = await Promise.all(
@@ -72,6 +73,67 @@ function displayPosts(posts) {
     });
 }
 
+// Load first 3 projects from projects.json
+async function loadHomepageProjects() {
+    try {
+        const res = await fetch('./projects/projects.json');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const projects = await res.json();
+        return projects.slice(0, 3);
+    } catch (err) {
+        console.error('Error loading projects:', err);
+        return [];
+    }
+}
+
+// Render project cards on homepage
+function displayHomepageProjects(projects) {
+    if (!homepageProjectsContainer) return;
+    homepageProjectsContainer.innerHTML = '';
+
+    if (projects.length === 0) {
+        homepageProjectsContainer.innerHTML = '<p class="no-results">No projects found.</p>';
+        return;
+    }
+
+    projects.forEach(project => {
+        const card = document.createElement('div');
+        card.className = 'project-card netflix-card' + (project.featured ? ' featured' : '');
+
+        const tagsHtml = project.tags.map(t => `<span>${t}</span>`).join('');
+        const githubLink = project.github
+            ? `<a href="${project.github}" target="_blank" rel="noopener" class="project-github-link" onclick="event.stopPropagation()"><i class="fab fa-github"></i></a>`
+            : '';
+        const chromeLink = project.chromeWebStore
+            ? `<a href="${project.chromeWebStore}" target="_blank" rel="noopener" class="project-chrome-link" onclick="event.stopPropagation()" title="Chrome Web Store"><i class="fab fa-chrome"></i></a>`
+            : '';
+        const featuredBadge = project.featured ? '<span class="featured-badge">FEATURED</span>' : '';
+
+        card.innerHTML = `
+            <a href="project.html?id=${encodeURIComponent(project.id)}" class="project-card-link">
+                <div class="project-card-banner project-card-banner--icon">
+                    <i class="${project.icon}"></i>
+                </div>
+                <div class="project-card-inner">
+                    <div class="project-card-top">
+                        <div class="project-icon"><i class="${project.icon}"></i></div>
+                        ${featuredBadge}
+                    </div>
+                    <h3>${project.title}</h3>
+                    <p>${project.tagline}</p>
+                    <div class="project-tags">${tagsHtml}</div>
+                    <div class="project-links">
+                        <span class="view-details"><i class="fas fa-arrow-right"></i> View Details</span>
+                        ${githubLink}
+                        ${chromeLink}
+                    </div>
+                </div>
+            </a>
+        `;
+        homepageProjectsContainer.appendChild(card);
+    });
+}
+
 // Initialize homepage
 document.addEventListener('DOMContentLoaded', async () => {
     // Nav logic
@@ -97,11 +159,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Load and display recent posts (max 4 on homepage)
     try {
         const posts = await loadPosts();
-        displayPosts(posts.slice(0, 4));
+        displayPosts(posts.slice(0, 3));
     } catch (err) {
         console.error('Failed to initialize:', err);
         if (postsContainer) {
             postsContainer.innerHTML = '<div class="error">Failed to load posts.</div>';
+        }
+    }
+
+    // Load and display hobby projects (first 3 from projects.json)
+    try {
+        const projects = await loadHomepageProjects();
+        displayHomepageProjects(projects);
+    } catch (err) {
+        console.error('Failed to load homepage projects:', err);
+        if (homepageProjectsContainer) {
+            homepageProjectsContainer.innerHTML = '<div class="error">Failed to load projects.</div>';
         }
     }
 });

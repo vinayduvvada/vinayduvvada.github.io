@@ -1,1 +1,7 @@
-[]
+[
+  "async-operations-in-enterprise-systems",
+  "event-driven-architecture-patterns",
+  "distributed-systems-consistency-models",
+  "microservices-vs-monolith",
+  "load-balancer-deep-dive"
+]

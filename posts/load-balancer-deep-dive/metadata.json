@@ -1,0 +1,9 @@
+{
+    "id": "load-balancer-deep-dive",
+    "title": "Load Balancers Deep Dive: L4 vs L7, Algorithms, and Modern ADC",
+    "excerpt": "Load balancers are the invisible backbone of every scalable web system. This post covers L4 vs L7 load balancing, traffic algorithms, health checks, and the evolution from hardware F5 to software-defined ADCs.",
+    "date": "April 30, 2025",
+    "readTime": "11 min read",
+    "coverImage": "cover.jpg",
+    "tags": ["Architecture", "Distributed Systems", "Load Balancing", "Infrastructure"]
+}

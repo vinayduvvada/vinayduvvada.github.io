@@ -1,0 +1,9 @@
+{
+    "id": "event-driven-architecture-patterns",
+    "title": "Event-Driven Architecture Patterns in Modern Cloud Systems",
+    "excerpt": "A deep dive into event-driven architecture patterns — from pub/sub and event sourcing to CQRS — and how they power scalable, decoupled distributed systems.",
+    "date": "July 10, 2025",
+    "readTime": "9 min read",
+    "coverImage": "cover.jpg",
+    "tags": ["Architecture", "Distributed Systems", "Event-Driven", "Cloud"]
+}

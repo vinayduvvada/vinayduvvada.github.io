@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Search Shortcuts — Vinay Duvvada</title>
+    <meta name="description" content="A Chrome extension that adds customizable search shortcuts to your right-click context menu.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .showcase-hero {
+            position: relative;
+            min-height: 420px;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+            background: #0a0a0a;
+        }
+        .showcase-hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 70% 40%, rgba(229,9,20,0.18) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 50% at 20% 80%, rgba(229,9,20,0.08) 0%, transparent 60%),
+                linear-gradient(160deg, #0a0a0a 0%, #141414 50%, #1a0a0a 100%);
+        }
+        .showcase-hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(229,9,20,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(229,9,20,0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.5) 30%, rgba(0,0,0,0.5) 70%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.5) 30%, rgba(0,0,0,0.5) 70%, transparent);
+        }
+        .showcase-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 8rem 2rem 3.5rem;
+        }
+        .showcase-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        .showcase-breadcrumb a { color: var(--text-muted); transition: color var(--transition); }
+        .showcase-breadcrumb a:hover { color: var(--primary); }
+        .showcase-breadcrumb i { font-size: 0.65rem; }
+        .showcase-hero-body { display: flex; align-items: flex-end; gap: 2.5rem; flex-wrap: wrap; }
+        .showcase-icon-wrap {
+            width: 88px; height: 88px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(229,9,20,0.25) 0%, rgba(229,9,20,0.08) 100%);
+            border: 1px solid rgba(229,9,20,0.3);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.4rem; color: var(--primary); flex-shrink: 0;
+            box-shadow: 0 0 40px rgba(229,9,20,0.15);
+        }
+        .showcase-hero-text { flex: 1; min-width: 260px; }
+        .showcase-label {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+            color: var(--primary); background: rgba(229,9,20,0.12);
+            border: 1px solid rgba(229,9,20,0.25); padding: 0.3rem 0.8rem;
+            border-radius: 20px; margin-bottom: 0.85rem;
+        }
+        .showcase-title {
+            font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 800;
+            color: var(--text-bright); letter-spacing: -1px; line-height: 1.1; margin-bottom: 0.75rem;
+        }
+        .showcase-tagline { font-size: 1.05rem; color: var(--text-muted); line-height: 1.6; max-width: 580px; margin-bottom: 1.5rem; }
+        .showcase-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.75rem; }
+        .showcase-badge {
+            display: inline-flex; align-items: center; gap: 0.35rem;
+            padding: 0.3rem 0.75rem; border-radius: 6px; font-size: 0.78rem; font-weight: 600;
+            background: rgba(255,255,255,0.06); color: var(--text-muted); border: 1px solid var(--border);
+        }
+        .showcase-badge.badge-featured { background: rgba(229,9,20,0.15); color: var(--primary); border-color: rgba(229,9,20,0.3); }
+        .showcase-actions { display: flex; gap: 0.85rem; flex-wrap: wrap; }
+
+        .showcase-stats-bar { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .showcase-stats-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; }
+        .showcase-stat { flex: 1; padding: 1.25rem 1.5rem; border-right: 1px solid var(--border); text-align: center; }
+        .showcase-stat:last-child { border-right: none; }
+        .showcase-stat-value { font-size: 1.4rem; font-weight: 800; color: var(--text-bright); line-height: 1; margin-bottom: 0.3rem; }
+        .showcase-stat-value span { color: var(--primary); }
+        .showcase-stat-label { font-size: 0.72rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+        .showcase-body { max-width: 1200px; margin: 0 auto; padding: 3.5rem 2rem 5rem; display: grid; grid-template-columns: 1fr 280px; gap: 3.5rem; align-items: start; }
+        .showcase-sidebar { position: sticky; top: 80px; }
+        .sidebar-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 1.25rem; }
+        .sidebar-card-header { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); }
+        .sidebar-toc { padding: 0.75rem 0; }
+        .sidebar-toc a {
+            display: flex; align-items: center; gap: 0.6rem;
+            padding: 0.55rem 1.25rem; font-size: 0.87rem; color: var(--text-muted);
+            transition: color var(--transition), background var(--transition);
+            border-left: 2px solid transparent;
+        }
+        .sidebar-toc a:hover, .sidebar-toc a.active { color: var(--primary); background: rgba(229,9,20,0.05); border-left-color: var(--primary); }
+        .sidebar-toc a i { font-size: 0.8rem; width: 14px; text-align: center; }
+        .sidebar-links { padding: 0.75rem 0; }
+        .sidebar-links a {
+            display: flex; align-items: center; gap: 0.7rem;
+            padding: 0.65rem 1.25rem; font-size: 0.87rem; color: var(--text-muted);
+            transition: color var(--transition), background var(--transition);
+        }
+        .sidebar-links a:hover { color: var(--primary); background: rgba(229,9,20,0.05); }
+        .sidebar-links a i { width: 16px; text-align: center; }
+        .sidebar-tech { padding: 1rem 1.25rem; }
+        .sidebar-tech-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        .tech-pill {
+            display: inline-flex; align-items: center; gap: 0.3rem;
+            padding: 0.25rem 0.65rem; border-radius: 20px; font-size: 0.74rem; font-weight: 600;
+            background: rgba(229,9,20,0.1); color: var(--primary); border: 1px solid rgba(229,9,20,0.2);
+        }
+
+        .showcase-section { margin-bottom: 3.5rem; scroll-margin-top: 90px; }
+        .showcase-section-title {
+            font-size: 1.3rem; font-weight: 700; color: var(--text-bright);
+            margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.65rem;
+            padding-bottom: 0.85rem; border-bottom: 1px solid var(--border);
+        }
+        .showcase-section-title i { color: var(--primary); font-size: 1.1rem; }
+        .overview-text { font-size: 1.02rem; color: var(--text); line-height: 1.85; }
+        .ic {
+            background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 4px;
+            padding: 0.1em 0.4em; font-size: 0.875em;
+            font-family: 'SFMono-Regular', Consolas, monospace; color: var(--primary);
+        }
+
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+        .feature-card {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+            padding: 1.5rem; transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+        }
+        .feature-card:hover { border-color: rgba(229,9,20,0.35); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
+        .feature-card-icon {
+            width: 40px; height: 40px; border-radius: 10px; background: rgba(229,9,20,0.12);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--primary); font-size: 1rem; margin-bottom: 1rem;
+        }
+        .feature-card h4 { font-size: 0.97rem; font-weight: 700; color: var(--text-bright); margin-bottom: 0.5rem; }
+        .feature-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+        .version-timeline { position: relative; }
+        .version-timeline::before {
+            content: ''; position: absolute; left: 11px; top: 8px; bottom: 8px;
+            width: 2px; background: linear-gradient(to bottom, var(--primary), var(--border)); border-radius: 1px;
+        }
+        .version-item { position: relative; padding-left: 2.75rem; margin-bottom: 2rem; }
+        .version-item:last-child { margin-bottom: 0; }
+        .version-dot {
+            position: absolute; left: 0; top: 5px; width: 24px; height: 24px;
+            border-radius: 50%; background: var(--bg-card); border: 2px solid var(--primary);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .version-dot.latest { background: var(--primary); }
+        .version-dot i { font-size: 0.6rem; color: var(--primary); }
+        .version-dot.latest i { color: white; }
+        .version-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.65rem; flex-wrap: wrap; }
+        .version-number { font-size: 1rem; font-weight: 700; color: var(--text-bright); }
+        .version-tag { font-size: 0.68rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 20px; }
+        .version-tag.latest { background: var(--primary); color: white; }
+        .version-tag.stable { background: rgba(34,197,94,0.15); color: #22c55e; border: 1px solid rgba(34,197,94,0.25); }
+        .version-tag.initial { background: rgba(99,102,241,0.15); color: #818cf8; border: 1px solid rgba(99,102,241,0.25); }
+        .version-features { list-style: none; margin: 0; padding: 0; }
+        .version-features li { font-size: 0.88rem; color: var(--text-muted); padding: 0.3rem 0; display: flex; align-items: flex-start; gap: 0.5rem; line-height: 1.5; }
+        .version-features li::before { content: '\25B8'; color: var(--primary); font-size: 0.7rem; margin-top: 0.2rem; flex-shrink: 0; }
+
+        .file-tree { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+        .file-tree-header { padding: 0.85rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem; background: var(--bg-elevated); }
+        .file-tree-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .file-tree-dot:nth-child(1) { background: #ff5f57; }
+        .file-tree-dot:nth-child(2) { background: #febc2e; }
+        .file-tree-dot:nth-child(3) { background: #28c840; }
+        .file-tree-name { font-size: 0.78rem; color: var(--text-muted); margin-left: 0.25rem; }
+        .file-tree-body { padding: 1.25rem 1.5rem; font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.84rem; line-height: 2; color: var(--text); }
+        .ft-dir { color: var(--text-bright); font-weight: 600; }
+        .ft-file { color: var(--text-muted); }
+        .ft-comment { color: rgba(229,9,20,0.7); font-style: italic; }
+        .ft-indent { display: inline-block; width: 1.5rem; }
+
+        .steps-list { display: flex; flex-direction: column; gap: 1.25rem; }
+        .step-item {
+            display: flex; gap: 1.25rem; align-items: flex-start;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; transition: border-color var(--transition);
+        }
+        .step-item:hover { border-color: rgba(229,9,20,0.25); }
+        .step-number { width: 36px; height: 36px; border-radius: 50%; background: var(--primary); color: white; font-size: 0.9rem; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .step-body h4 { font-size: 0.97rem; font-weight: 700; color: var(--text-bright); margin-bottom: 0.35rem; }
+        .step-body p { font-size: 0.87rem; color: var(--text-muted); line-height: 1.6; }
+
+        .perms-list { display: flex; flex-direction: column; gap: 0.6rem; }
+        .perm-item { display: flex; align-items: flex-start; gap: 1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.85rem 1.1rem; }
+        .perm-icon { width: 34px; height: 34px; border-radius: 8px; background: rgba(229,9,20,0.1); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0; }
+        .perm-name { font-size: 0.85rem; font-weight: 700; color: var(--text-bright); margin-bottom: 0.2rem; font-family: 'SFMono-Regular', Consolas, monospace; }
+        .perm-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+        .settings-table { width: 100%; border-collapse: collapse; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); font-size: 0.87rem; }
+        .settings-table th { background: var(--bg-elevated); padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+        .settings-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: top; }
+        .settings-table tr:last-child td { border-bottom: none; }
+        .settings-table tr:hover td { background: rgba(255,255,255,0.02); }
+        .settings-table td:first-child { font-weight: 700; color: var(--text-bright); font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.82rem; white-space: nowrap; }
+        .settings-table td:last-child { color: var(--primary); font-size: 0.82rem; }
+
+        .screenshots-note { background: var(--bg-card); border: 1px dashed var(--border); border-radius: var(--radius-lg); padding: 2.5rem; text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+        .screenshots-note i { font-size: 2.5rem; color: rgba(229,9,20,0.3); display: block; margin-bottom: 0.75rem; }
+        .screenshots-note a { color: var(--primary); font-weight: 600; }
+
+        @media (max-width: 900px) {
+            .showcase-body { grid-template-columns: 1fr; }
+            .showcase-sidebar { position: static; order: -1; }
+            .sidebar-toc { display: none; }
+        }
+        @media (max-width: 640px) {
+            .showcase-stats-inner { flex-wrap: wrap; }
+            .showcase-stat { flex: 1 1 40%; border-right: none; border-bottom: 1px solid var(--border); }
+            .showcase-stat:last-child { border-bottom: none; }
+            .showcase-hero-body { gap: 1.5rem; }
+            .showcase-icon-wrap { width: 64px; height: 64px; font-size: 1.8rem; }
+            .features-grid { grid-template-columns: 1fr; }
+        }
+        [data-theme="light"] .showcase-hero-bg {
+            background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(212,8,18,0.08) 0%, transparent 70%), linear-gradient(160deg, #f8f8f8 0%, #f0f0f0 100%);
+        }
+        [data-theme="light"] .showcase-hero-grid {
+            background-image: linear-gradient(rgba(212,8,18,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(212,8,18,0.04) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body>
+    <header class="header" id="header">
+        <nav class="navbar">
+            <a href="../index.html" class="logo">V<span class="logo-dot">.</span></a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="../index.html">Home</a>
+                <a href="../blog.html">Blog</a>
+                <a href="../projects.html" class="active">Projects</a>
+                <a href="../about.html">About</a>
+            </div>
+            <button class="theme-toggle" aria-label="Dark theme" title="Dark"><i class="fas fa-moon"></i></button>
+        </nav>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="showcase-hero">
+        <div class="showcase-hero-bg"></div>
+        <div class="showcase-hero-grid"></div>
+        <div class="showcase-hero-content">
+            <div class="showcase-breadcrumb">
+                <a href="../index.html">Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="../projects.html">Projects</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Custom Search Shortcuts</span>
+            </div>
+            <div class="showcase-hero-body">
+                <div class="showcase-icon-wrap"><i class="fas fa-search"></i></div>
+                <div class="showcase-hero-text">
+                    <div class="showcase-label"><i class="fas fa-star"></i> Featured Project</div>
+                    <h1 class="showcase-title">Custom Search Shortcuts</h1>
+                    <p class="showcase-tagline">
+                        A Chrome extension that adds customizable search shortcuts to your right-click context menu.
+                        Quickly search selected text across multiple search engines with environment variables,
+                        keyboard shortcuts, and omnibox integration.
+                    </p>
+                    <div class="showcase-badges">
+                        <span class="showcase-badge badge-featured"><i class="fab fa-chrome"></i> Chrome Extension</span>
+                        <span class="showcase-badge"><i class="fas fa-code-branch"></i> Manifest V3</span>
+                        <span class="showcase-badge"><i class="fab fa-js-square"></i> Vanilla JavaScript</span>
+                        <span class="showcase-badge"><i class="fas fa-balance-scale"></i> MIT License</span>
+                    </div>
+                    <div class="showcase-actions">
+                        <a href="https://github.com/vinayduvvada/custom_search_shortcuts" target="_blank" rel="noopener" class="btn btn-primary">
+                            <i class="fab fa-github"></i> View on GitHub
+                        </a>
+                        <a href="../projects.html" class="btn btn-outline">
+                            <i class="fas fa-arrow-left"></i> All Projects
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="showcase-stats-bar">
+        <div class="showcase-stats-inner">
+            <div class="showcase-stat">
+                <div class="showcase-stat-value"><span>v4</span>.0.0</div>
+                <div class="showcase-stat-label">Current Version</div>
+            </div>
+            <div class="showcase-stat">
+                <div class="showcase-stat-value"><span>36</span>+</div>
+                <div class="showcase-stat-label">Preset Engines</div>
+            </div>
+            <div class="showcase-stat">
+                <div class="showcase-stat-value"><span>5</span></div>
+                <div class="showcase-stat-label">Chrome Permissions</div>
+            </div>
+            <div class="showcase-stat">
+                <div class="showcase-stat-value"><span>MIT</span></div>
+                <div class="showcase-stat-label">License</div>
+            </div>
+            <div class="showcase-stat">
+                <div class="showcase-stat-value"><span>0</span></div>
+                <div class="showcase-stat-label">Dependencies</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Body -->
+    <div class="showcase-body">
+        <main>
+
+            <!-- Overview -->
+            <section class="showcase-section" id="overview">
+                <h2 class="showcase-section-title"><i class="fas fa-info-circle"></i> Overview</h2>
+                <p class="overview-text">
+                    <strong style="color:var(--text-bright);">Custom Search Shortcuts</strong> is a Chrome extension
+                    built to eliminate the copy-paste-search cycle. Highlight any text on any webpage, right-click,
+                    and instantly search it across Google, GitHub, ChatGPT, Stack Overflow, or any custom URL you define
+                    &#8212; all in one click.
+                </p>
+                <br>
+                <p class="overview-text">
+                    Built with <strong style="color:var(--text-bright);">Chrome Extension Manifest V3</strong> and
+                    zero external dependencies &#8212; just clean, lightweight vanilla JavaScript. It supports
+                    unlimited custom search URLs, environment-aware variable substitution with
+                    <code class="ic">{{variable}}</code> syntax, drag-and-drop reordering,
+                    keyboard shortcut assignment, omnibox integration, dark/light/system theming,
+                    and a Gmail-style undo-delete trash bin.
+                </p>
+            </section>
+
+            <!-- Features -->
+            <section class="showcase-section" id="features">
+                <h2 class="showcase-section-title"><i class="fas fa-bolt"></i> Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-puzzle-piece"></i></div>
+                        <h4>Core Search Engine</h4>
+                        <p>Unlimited custom search URLs, environment variables, dynamic <code class="ic">{{variable}}</code> URL templates, and seamless right-click integration.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-folder-open"></i></div>
+                        <h4>Organization</h4>
+                        <p>Categories with emoji icons, nested context-menu submenus, drag-and-drop reordering for URLs, categories, and environments.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-star"></i></div>
+                        <h4>Favorites</h4>
+                        <p>Pin shortcuts to the top of the context menu and popup. Toggle favorites inline. Favorited URLs remain inside their category submenus too.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-keyboard"></i></div>
+                        <h4>Keyboard Shortcuts</h4>
+                        <p>Assign custom hotkeys (e.g. <code class="ic">Ctrl+Shift+G</code>) to any search URL. Inline recorder with live modifier key feedback and purple dot badge indicator.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-terminal"></i></div>
+                        <h4>Omnibox Search</h4>
+                        <p>Type <code class="ic">cs</code> + Tab in Chrome's address bar, then a shortcut name and query. Auto-suggestions with exact &#8594; prefix &#8594; contains matching.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-layer-group"></i></div>
+                        <h4>Environments</h4>
+                        <p>Define variables bound to Dev/Staging/Prod values. Right-click &#8594; pick environment &#8594; opens the correct target automatically.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-trash-restore"></i></div>
+                        <h4>Trash &amp; Undo</h4>
+                        <p>Gmail-style delete with instant undo toast. Configurable retention (1&#8211;90 days). Restore individual items or empty all trash with one click.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-file-export"></i></div>
+                        <h4>Import / Export</h4>
+                        <p>Back up your entire config &#8212; URLs, categories, variables, environments, favorites, keyboard shortcuts, and settings &#8212; as a single JSON file.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon"><i class="fas fa-palette"></i></div>
+                        <h4>Theming</h4>
+                        <p>Light, Dark, and System theme modes. Synced instantly between the popup and options page. Works on any OS without flickering.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How It Works -->
+            <section class="showcase-section" id="how-it-works">
+                <h2 class="showcase-section-title"><i class="fas fa-play-circle"></i> How It Works</h2>
+                <div class="steps-list">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-body">
+                            <h4>Install the Extension</h4>
+                            <p>Load unpacked from <code class="ic">chrome://extensions/</code> in Developer Mode, or install from the Chrome Web Store (coming soon).</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-body">
+                            <h4>Add Your Search Engines</h4>
+                            <p>Open Options, enter a name and URL with <code class="ic">%s</code> as the search placeholder. Example: <code class="ic">https://github.com/search?q=%s</code>. Assign a category and optional emoji icon.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-body">
+                            <h4>Select &amp; Right-Click</h4>
+                            <p>Highlight any text on any webpage &#8594; right-click &#8594; <strong>Custom Search</strong> &#8594; select your engine. A new tab opens with your results instantly.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">4</div>
+                        <div class="step-body">
+                            <h4>Advanced: Environment Variables</h4>
+                            <p>Define a variable like <code class="ic">api_host</code> with per-environment values, then use it in a URL: <code class="ic">https://{{api_host}}/docs?q=%s</code>. Choose Dev or Prod from the context submenu.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">5</div>
+                        <div class="step-body">
+                            <h4>Omnibox Power Mode</h4>
+                            <p>Type <code class="ic">cs</code> in Chrome's address bar, press Tab, then a shortcut name and your query. Example: <code class="ic">cs mdn flexbox</code>.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- File Structure -->
+            <section class="showcase-section" id="structure">
+                <h2 class="showcase-section-title"><i class="fas fa-sitemap"></i> Project Structure</h2>
+                <div class="file-tree">
+                    <div class="file-tree-header">
+                        <div class="file-tree-dot"></div>
+                        <div class="file-tree-dot"></div>
+                        <div class="file-tree-dot"></div>
+                        <span class="file-tree-name">custom-search-shortcuts/</span>
+                    </div>
+                    <div class="file-tree-body">
+                        <div><span class="ft-dir">custom-search-shortcuts/</span></div>
+                        <div><span class="ft-indent">&#9500;&#9472;&#9472; </span><span class="ft-file">manifest.json</span><span class="ft-comment"> &nbsp;# Extension config, permissions, omnibox keyword</span></div>
+                        <div><span class="ft-indent">&#9500;&#9472;&#9472; </span><span class="ft-file">background.js</span><span class="ft-comment"> &nbsp;# Service worker: context menu, omnibox, hotkeys</span></div>
+                        <div><span class="ft-indent">&#9500;&#9472;&#9472; </span><span class="ft-file">content_script.js</span><span class="ft-comment"> &nbsp;# Injected on all pages &#8212; captures keyboard shortcuts</span></div>
+                        <div><span class="ft-indent">&#9500;&#9472;&#9472; </span><span class="ft-file">popup.html</span><span class="ft-comment"> &nbsp;# Extension popup UI</span></div>
+                        <div><span class="ft-indent">&#9500;&#9472;&#9472; </span><span class="ft-file">popup.js</span><span class="ft-comment"> &nbsp;# Popup: category list, search filter, theme cycle</span></div>
+                        <div><span class="ft-indent">&#9500;&#9472;&#9472; </span><span class="ft-file">options.html</span><span class="ft-comment"> &nbsp;# Options page (URLs, Variables, Categories, Trash…)</span></div>
+                        <div><span class="ft-indent">&#9500;&#9472;&#9472; </span><span class="ft-file">options.js</span><span class="ft-comment"> &nbsp;# CRUD, drag-reorder, trash, shortcut recorder</span></div>
+                        <div><span class="ft-indent">&#9500;&#9472;&#9472; </span><span class="ft-file">theme.js</span><span class="ft-comment"> &nbsp;# Shared theme engine (light/dark/system)</span></div>
+                        <div><span class="ft-indent">&#9500;&#9472;&#9472; </span><span class="ft-dir">icons/</span><span class="ft-comment"> &nbsp;# icon16.png, icon48.png, icon128.png</span></div>
+                        <div><span class="ft-indent">&#9500;&#9472;&#9472; </span><span class="ft-file">LICENSE</span><span class="ft-comment"> &nbsp;# MIT &#8212; Copyright 2025 Vinay Duvvada</span></div>
+                        <div><span class="ft-indent">&#9492;&#9472;&#9472; </span><span class="ft-file">README.md</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Permissions -->
+            <section class="showcase-section" id="permissions">
+                <h2 class="showcase-section-title"><i class="fas fa-shield-alt"></i> Chrome Permissions</h2>
+                <div class="perms-list">
+                    <div class="perm-item">
+                        <div class="perm-icon"><i class="fas fa-mouse-pointer"></i></div>
+                        <div>
+                            <div class="perm-name">contextMenus</div>
+                            <div class="perm-desc">Create and manage right-click context menu items and nested category submenus.</div>
+                        </div>
+                    </div>
+                    <div class="perm-item">
+                        <div class="perm-icon"><i class="fas fa-database"></i></div>
+                        <div>
+                            <div class="perm-name">storage</div>
+                            <div class="perm-desc">Save user configurations via <code class="ic">chrome.storage.sync</code> &#8212; synced across all signed-in Chrome devices. No external servers.</div>
+                        </div>
+                    </div>
+                    <div class="perm-item">
+                        <div class="perm-icon"><i class="fas fa-window-maximize"></i></div>
+                        <div>
+                            <div class="perm-name">activeTab</div>
+                            <div class="perm-desc">Access current tab info for "Add Current Page" functionality and configurable tab positioning.</div>
+                        </div>
+                    </div>
+                    <div class="perm-item">
+                        <div class="perm-icon"><i class="fas fa-clone"></i></div>
+                        <div>
+                            <div class="perm-name">tabs</div>
+                            <div class="perm-desc">Query tab index so new search results open right next to your current tab (configurable).</div>
+                        </div>
+                    </div>
+                    <div class="perm-item">
+                        <div class="perm-icon"><i class="fas fa-code"></i></div>
+                        <div>
+                            <div class="perm-name">scripting</div>
+                            <div class="perm-desc">Required for content script injection to enable global keyboard shortcut capture on all pages.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings -->
+            <section class="showcase-section" id="settings">
+                <h2 class="showcase-section-title"><i class="fas fa-cog"></i> Settings Reference</h2>
+                <table class="settings-table">
+                    <thead>
+                        <tr><th>Setting</th><th>Description</th><th>Default</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Theme</td>
+                            <td style="color:var(--text)">Light / System / Dark theme for popup and options page</td>
+                            <td>System</td>
+                        </tr>
+                        <tr>
+                            <td>Trash Retention</td>
+                            <td style="color:var(--text)">Days to keep deleted items before permanent removal (1&#8211;90)</td>
+                            <td>15 days</td>
+                        </tr>
+                        <tr>
+                            <td>New Tab Position</td>
+                            <td style="color:var(--text)">Open search results next to current tab or at end of tab bar</td>
+                            <td>Next to current</td>
+                        </tr>
+                        <tr>
+                            <td>Default Category</td>
+                            <td style="color:var(--text)">Auto-select a category when adding new search URLs</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td>Keyboard Shortcuts</td>
+                            <td style="color:var(--text)">View and remove all assigned hotkeys from the Settings tab overview</td>
+                            <td>&#8212;</td>
+                        </tr>
+                        <tr>
+                            <td>Omnibox Search</td>
+                            <td style="color:var(--text)">Reference guide for using the <code class="ic">cs</code> keyword in Chrome's address bar</td>
+                            <td>&#8212;</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Version History -->
+            <section class="showcase-section" id="changelog">
+                <h2 class="showcase-section-title"><i class="fas fa-history"></i> Version History</h2>
+                <div class="version-timeline">
+                    <div class="version-item">
+                        <div class="version-dot latest"><i class="fas fa-check"></i></div>
+                        <div class="version-header">
+                            <span class="version-number">v4.0.0</span>
+                            <span class="version-tag latest">Latest</span>
+                        </div>
+                        <ul class="version-features">
+                            <li>Keyboard shortcuts &#8212; assign custom hotkeys to any search URL, capture selected text and search instantly</li>
+                            <li>Inline shortcut recorder with live modifier key feedback and purple dot badge indicator</li>
+                            <li>Assigned Shortcuts overview in the Settings tab</li>
+                            <li>Omnibox search &#8212; type <code class="ic">cs</code> + Tab in the address bar with auto-suggestions</li>
+                            <li>Smart name matching (exact &#8594; prefix &#8594; contains) in omnibox</li>
+                            <li>New <code class="ic">content_script.js</code> for capturing keyboard shortcuts on all pages</li>
+                            <li>Export/Import now includes keyboard shortcuts</li>
+                        </ul>
+                    </div>
+                    <div class="version-item">
+                        <div class="version-dot"><i class="fas fa-star"></i></div>
+                        <div class="version-header">
+                            <span class="version-number">v3.0.0</span>
+                            <span class="version-tag stable">Stable</span>
+                        </div>
+                        <ul class="version-features">
+                            <li>Favorites &#8212; pin shortcuts to top of context menu and popup for instant access</li>
+                            <li>Favorite star toggle in both popup and options page</li>
+                            <li>Favorited URLs appear at top of context menu with a visual separator</li>
+                            <li>Category-aware pinning &#8212; favorites still appear inside their category submenus</li>
+                            <li>Export/Import now includes favorites and settings</li>
+                        </ul>
+                    </div>
+                    <div class="version-item">
+                        <div class="version-dot"><i class="fas fa-code-branch"></i></div>
+                        <div class="version-header">
+                            <span class="version-number">v2.0.0</span>
+                            <span class="version-tag stable">Stable</span>
+                        </div>
+                        <ul class="version-features">
+                            <li>Search Categories with emoji icon picker and nested context-menu submenus</li>
+                            <li>Trash system with configurable retention and Gmail-style undo delete</li>
+                            <li>Dark / Light / System theme toggle synced across popup and options</li>
+                            <li>Settings page for theme, trash retention, tab position, default category</li>
+                            <li>Drag-and-drop reordering for URLs, categories, and environments</li>
+                            <li>Duplicate shortcut &#8212; pre-fills form for review before saving</li>
+                            <li>New tabs open next to current tab (configurable)</li>
+                        </ul>
+                    </div>
+                    <div class="version-item">
+                        <div class="version-dot"><i class="fas fa-rocket"></i></div>
+                        <div class="version-header">
+                            <span class="version-number">v1.0.0</span>
+                            <span class="version-tag initial">Initial Release</span>
+                        </div>
+                        <ul class="version-features">
+                            <li>Initial public release &#8212; custom search URLs with <code class="ic">%s</code> placeholder</li>
+                            <li>Environment variables support with <code class="ic">{{variable}}</code> syntax</li>
+                            <li>Import/Export functionality and right-click context menu integration</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Screenshots -->
+            <section class="showcase-section" id="screenshots">
+                <h2 class="showcase-section-title"><i class="fas fa-images"></i> Screenshots</h2>
+                <div class="screenshots-note">
+                    <i class="fas fa-photo-video"></i>
+                    Screenshots will appear here once the repository has images in the <code class="ic">screenshots/</code> folder.
+                    <br><br>
+                    <a href="https://github.com/vinayduvvada/custom_search_shortcuts" target="_blank" rel="noopener">
+                        View on GitHub <i class="fas fa-external-link-alt" style="font-size:0.8em;"></i>
+                    </a>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="showcase-sidebar">
+            <div class="sidebar-card">
+                <div class="sidebar-card-header">On This Page</div>
+                <nav class="sidebar-toc" id="tocNav">
+                    <a href="#overview"><i class="fas fa-info-circle"></i> Overview</a>
+                    <a href="#features"><i class="fas fa-bolt"></i> Features</a>
+                    <a href="#how-it-works"><i class="fas fa-play-circle"></i> How It Works</a>
+                    <a href="#structure"><i class="fas fa-sitemap"></i> Project Structure</a>
+                    <a href="#permissions"><i class="fas fa-shield-alt"></i> Permissions</a>
+                    <a href="#settings"><i class="fas fa-cog"></i> Settings</a>
+                    <a href="#changelog"><i class="fas fa-history"></i> Changelog</a>
+                    <a href="#screenshots"><i class="fas fa-images"></i> Screenshots</a>
+                </nav>
+            </div>
+            <div class="sidebar-card">
+                <div class="sidebar-card-header">Links</div>
+                <div class="sidebar-links">
+                    <a href="https://github.com/vinayduvvada/custom_search_shortcuts" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub Repository</a>
+                    <a href="https://github.com/vinayduvvada/custom_search_shortcuts/issues" target="_blank" rel="noopener"><i class="fas fa-bug"></i> Report a Bug</a>
+                    <a href="https://developer.chrome.com/docs/extensions/" target="_blank" rel="noopener"><i class="fab fa-chrome"></i> Chrome Extension Docs</a>
+                    <a href="../projects.html"><i class="fas fa-arrow-left"></i> All Projects</a>
+                </div>
+            </div>
+            <div class="sidebar-card">
+                <div class="sidebar-card-header">Tech Stack</div>
+                <div class="sidebar-tech">
+                    <div class="sidebar-tech-pills">
+                        <span class="tech-pill"><i class="fab fa-chrome"></i> Manifest V3</span>
+                        <span class="tech-pill"><i class="fab fa-js-square"></i> JavaScript</span>
+                        <span class="tech-pill"><i class="fab fa-html5"></i> HTML5</span>
+                        <span class="tech-pill"><i class="fab fa-css3-alt"></i> CSS3</span>
+                        <span class="tech-pill"><i class="fas fa-sync-alt"></i> Storage Sync</span>
+                        <span class="tech-pill"><i class="fas fa-mouse-pointer"></i> Context Menu API</span>
+                        <span class="tech-pill"><i class="fas fa-search"></i> Omnibox API</span>
+                        <span class="tech-pill"><i class="fas fa-keyboard"></i> Keyboard Events</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="../index.html" class="footer-logo">V<span class="logo-dot">.</span></a>
+                <p>Building, writing, and sharing &#8212; one commit at a time.</p>
+            </div>
+            <div class="footer-nav">
+                <h4>Navigate</h4>
+                <a href="../index.html">Home</a>
+                <a href="../blog.html">Blog</a>
+                <a href="../projects.html">Projects</a>
+                <a href="../about.html">About</a>
+            </div>
+            <div class="footer-social">
+                <h4>Connect</h4>
+                <div class="social-icons">
+                    <a href="https://github.com/vinayduvvada" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/vinayduvvada" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:vinay.chowdary518@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Vinay Duvvada. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/theme.js"></script>
+    <script>
+        (function () {
+            var header = document.getElementById('header');
+            var navToggle = document.getElementById('navToggle');
+            var navLinks = document.getElementById('navLinks');
+
+            if (header) {
+                window.addEventListener('scroll', function () {
+                    header.classList.toggle('scrolled', window.scrollY > 50);
+                });
+            }
+
+            if (navToggle && navLinks) {
+                navToggle.addEventListener('click', function () { navLinks.classList.toggle('open'); });
+                document.addEventListener('click', function (e) {
+                    if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                        navLinks.classList.remove('open');
+                    }
+                });
+            }
+
+            var sections = document.querySelectorAll('.showcase-section[id]');
+            var tocLinks = document.querySelectorAll('#tocNav a');
+
+            if (tocLinks.length && sections.length) {
+                var observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            tocLinks.forEach(function (link) {
+                                link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+                            });
+                        }
+                    });
+                }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+
+                sections.forEach(function (s) { observer.observe(s); });
+            }
+        }());
+    </script>
+</body>
+</html>

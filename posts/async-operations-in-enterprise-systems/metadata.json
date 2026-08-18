@@ -1,0 +1,9 @@
+{
+    "id": "async-operations-in-enterprise-systems",
+    "title": "The Hidden Complexity of Async Operations in Enterprise Systems",
+    "excerpt": "Async operations promise speed and scale, but they come with a hidden cost: you lose the receipt. Explore the pros, cons, and real-world patterns for tracking work that happens in the background.",
+    "date": "August 17, 2026",
+    "readTime": "8 min read",
+    "coverImage": "cover.jpg",
+    "tags": ["Architecture", "Async", "Enterprise", "Engineering Lessons"]
+}

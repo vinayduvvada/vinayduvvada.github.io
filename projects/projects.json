@@ -6,15 +6,12 @@
         "description": "A Chrome extension that adds customizable search shortcuts to your right-click context menu. Quickly search selected text across multiple search engines and websites with support for environment variables and dynamic URL templates.",
         "icon": "fas fa-search",
         "featured": true,
-        "tags": [
-            "Chrome Extension",
-            "Manifest V3",
-            "JavaScript",
-            "Context Menu",
-            "MIT License"
-        ],
+        "tags": ["Chrome Extension", "Manifest V3", "JavaScript", "Context Menu", "MIT License"],
         "github": "https://github.com/vinayduvvada/custom_search_shortcuts",
-        "download": "https://chromewebstore.google.com/detail/custom-search-shortcuts/hfjpbokofaibcjgnkbheeeiogckdockd",
+        "githubRepo": "vinayduvvada/custom_search_shortcuts",
+        "chromeWebStore": "https://chromewebstore.google.com/detail/custom-search-shortcuts-r/hfjpbokofaibcjgnkbheeeiogckdockd",
+        "imagesPath": "screenshots",
+        "readmePath": "README.md",
         "features": [
             {
                 "icon": "fas fa-puzzle-piece",
@@ -59,20 +56,74 @@
         ]
     },
     {
+        "id": "tab-manager",
+        "title": "Tab Manager",
+        "tagline": "A Kanban-based Chrome extension to organize and manage browser tabs.",
+        "description": "A Chrome extension to manage browser tabs with a Kanban board, project grouping, drag-and-drop, and workflow states. Includes a dashboard, archive, trash, auto-snapshots, and full export/import.",
+        "icon": "fas fa-columns",
+        "featured": true,
+        "tags": ["Chrome Extension", "Manifest V3", "JavaScript", "Kanban", "Productivity"],
+        "github": "https://github.com/vinayduvvada/tab_manager",
+        "githubRepo": "vinayduvvada/tab_manager",
+        "chromeWebStore": "https://chrome.google.com/webstore/search/tab%20manager%20kanban",
+        "imagesPath": "screenshots",
+        "readmePath": "README.md",
+        "features": [
+            {
+                "icon": "fas fa-th-large",
+                "title": "Kanban Dashboard",
+                "description": "Organize tab groups into configurable workflow state columns (e.g., Backlog → In Progress → Review → Done) with drag-and-drop."
+            },
+            {
+                "icon": "fas fa-object-group",
+                "title": "Tab Groups",
+                "description": "Create named groups with colors, drag open tabs into groups, and open all tabs in a group with one click."
+            },
+            {
+                "icon": "fas fa-camera",
+                "title": "Auto-Snapshot & Sessions",
+                "description": "Save/restore sessions, periodic automatic tab backups, configurable snapshot interval and retention."
+            },
+            {
+                "icon": "fas fa-trash-restore",
+                "title": "Trash & Archive",
+                "description": "Deleted groups go to trash with 15-day retention. Archived groups can be restored anytime. Export/import as JSON."
+            },
+            {
+                "icon": "fas fa-chart-bar",
+                "title": "Stats & Detection",
+                "description": "Live stats for tabs, groups, windows, and duplicate count. Duplicate tabs are highlighted with a yellow DUP badge."
+            },
+            {
+                "icon": "fas fa-keyboard",
+                "title": "Keyboard Shortcuts",
+                "description": "Ctrl+S to save, N to focus new group, / to search, R to refresh tabs — all from the dashboard or popup."
+            }
+        ],
+        "sections": [
+            {
+                "heading": "How It Works",
+                "content": "Use the popup to quickly add tabs to groups, or open the full Kanban dashboard to drag tabs between workflow columns. Configure up to 5 custom states, auto-snapshots, badge counts, and more from Settings."
+            },
+            {
+                "heading": "Tech Stack",
+                "content": "Chrome Extension Manifest V3, vanilla JavaScript, Chrome Storage API. Features a multi-page architecture with popup, dashboard, archive, trash, and settings pages."
+            }
+        ]
+    },
+    {
         "id": "tab-stack",
         "title": "TabStack",
         "tagline": "Stack up and launch your daily tabs with one click.",
         "description": "A Chrome extension that lets you save a list of URLs and open them all at once with a single click. Features dark/light/system theme, live URL count badge, favicon previews, and configurable tab launch behavior.",
         "icon": "fas fa-layer-group",
         "featured": false,
-        "tags": [
-            "Chrome Extension",
-            "Manifest V3",
-            "JavaScript",
-            "Productivity"
-        ],
+        "tags": ["Chrome Extension", "Manifest V3", "JavaScript", "Productivity"],
         "github": "https://github.com/vinayduvvada/tab_stack",
-        "download": "https://chromewebstore.google.com/detail/tabstack/mbdglohegjplfopdnhhdjefcnncoiknf",
+        "githubRepo": "vinayduvvada/tab_stack",
+        "chromeWebStore": "https://chromewebstore.google.com/detail/tabstack/mbdglohegjplfopdnhhdjefcnncoiknf",
+        "imagesPath": "screenshots",
+        "readmePath": "README.md",
         "features": [
             {
                 "icon": "fas fa-rocket",
