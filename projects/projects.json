@@ -56,16 +56,16 @@
         ]
     },
     {
-        "id": "tab-manager",
-        "title": "Tab Manager",
+        "id": "browser_kanban",
+        "title": "Browser Kanban",
         "tagline": "A Kanban-based Chrome extension to organize and manage browser tabs.",
         "description": "A Chrome extension to manage browser tabs with a Kanban board, project grouping, drag-and-drop, and workflow states. Includes a dashboard, archive, trash, auto-snapshots, and full export/import.",
         "icon": "fas fa-columns",
         "featured": true,
         "tags": ["Chrome Extension", "Manifest V3", "JavaScript", "Kanban", "Productivity"],
-        "github": "https://github.com/vinayduvvada/tab_manager",
-        "githubRepo": "vinayduvvada/tab_manager",
-        "chromeWebStore": "https://chrome.google.com/webstore/search/tab%20manager%20kanban",
+        "github": "https://github.com/vinayduvvada/browser_kanban",
+        "githubRepo": "vinayduvvada/browser_kanban",
+        "chromeWebStore": "https://chrome.google.com/webstore/search/browser%20kanban",
         "imagesPath": "screenshots",
         "readmePath": "README.md",
         "features": [
