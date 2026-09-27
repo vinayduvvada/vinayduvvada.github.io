@@ -1,5 +1,7 @@
 # Event-Driven Architecture Patterns in Modern Cloud Systems
 
+![Event-Driven Architecture Overview](./cover.svg)
+
 Event-driven architecture (EDA) has become the backbone of modern cloud-native applications. Instead of services calling each other directly, they communicate through events — decoupling producers from consumers and enabling massive scale.
 
 ## Why Event-Driven?
@@ -44,6 +46,8 @@ Read path:  Event → Projection → Read Model → Query
 ```
 
 This pattern powered the Windows release dashboard at Microsoft: writes came from automated test engines (commands), while the dashboard (read model) was a denormalized projection optimized for fast queries.
+
+![CQRS Write/Read Split and Orchestration Saga](./pubsub-vs-saga.svg)
 
 ### 4. Saga Pattern
 

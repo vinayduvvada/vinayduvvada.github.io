@@ -4,6 +4,6 @@
     "excerpt": "Understanding consistency vs. availability tradeoffs is fundamental to building reliable distributed systems. Explore CAP theorem, PACELC, strong vs. eventual consistency, and when to use each.",
     "date": "June 18, 2025",
     "readTime": "10 min read",
-    "coverImage": "cover.jpg",
+    "coverImage": "cover.svg",
     "tags": ["Distributed Systems", "Architecture", "CAP Theorem", "Consistency"]
 }

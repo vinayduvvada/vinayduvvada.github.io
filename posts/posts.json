@@ -1,4 +1,5 @@
 [
+  "db-locking-optimistic-pessimistic",
   "async-operations-in-enterprise-systems",
   "event-driven-architecture-patterns",
   "distributed-systems-consistency-models",

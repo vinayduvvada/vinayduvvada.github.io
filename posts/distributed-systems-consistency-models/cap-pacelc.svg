@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 380" width="860" height="380">
+  <defs>
+    <linearGradient id="bgCAP" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117"/>
+      <stop offset="100%" style="stop-color:#0d1a10"/>
+    </linearGradient>
+  </defs>
+  <rect width="860" height="380" fill="url(#bgCAP)" rx="12"/>
+  <rect width="860" height="380" fill="none" stroke="#374151" stroke-width="1.5" rx="12"/>
+
+  <text x="430" y="34" text-anchor="middle" font-family="'Courier New', monospace" font-size="16" font-weight="bold" fill="#f1f5f9">Real-World Database Consistency Choices</text>
+
+  <!-- Table -->
+  <!-- Header -->
+  <rect x="20" y="50" width="820" height="34" rx="0" fill="#1e2533"/>
+  <rect x="20" y="50" width="820" height="34" rx="6" fill="#1e2533"/>
+  <text x="150" y="72" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" font-weight="bold" fill="#9ca3af">Database</text>
+  <text x="370" y="72" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" font-weight="bold" fill="#9ca3af">Consistency Model</text>
+  <text x="560" y="72" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" font-weight="bold" fill="#9ca3af">CAP Class</text>
+  <text x="730" y="72" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" font-weight="bold" fill="#9ca3af">PACELC</text>
+  <line x1="270" y1="50" x2="270" y2="340" stroke="#374151" stroke-width="1"/>
+  <line x1="470" y1="50" x2="470" y2="340" stroke="#374151" stroke-width="1"/>
+  <line x1="650" y1="50" x2="650" y2="340" stroke="#374151" stroke-width="1"/>
+
+  <!-- Row 1 -->
+  <rect x="20" y="84" width="820" height="38" fill="#161b22"/>
+  <text x="150" y="107" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#f1f5f9">PostgreSQL</text>
+  <text x="370" y="107" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#e11d48">Strong</text>
+  <rect x="520" y="92" width="80" height="20" rx="10" fill="#e11d48" fill-opacity="0.2" stroke="#e11d48" stroke-width="1"/>
+  <text x="560" y="106" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#e11d48">CP</text>
+  <text x="730" y="107" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#9ca3af">PC/EC</text>
+
+  <!-- Row 2 -->
+  <rect x="20" y="122" width="820" height="38" fill="#1e2533"/>
+  <text x="150" y="145" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#f1f5f9">CockroachDB</text>
+  <text x="370" y="145" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#e11d48">Serializable (SSI)</text>
+  <rect x="520" y="130" width="80" height="20" rx="10" fill="#e11d48" fill-opacity="0.2" stroke="#e11d48" stroke-width="1"/>
+  <text x="560" y="144" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#e11d48">CP</text>
+  <text x="730" y="145" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#9ca3af">PC/EC</text>
+
+  <!-- Row 3 -->
+  <rect x="20" y="160" width="820" height="38" fill="#161b22"/>
+  <text x="150" y="183" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#f1f5f9">Cassandra</text>
+  <text x="370" y="183" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#22c55e">Eventual (tunable)</text>
+  <rect x="520" y="168" width="80" height="20" rx="10" fill="#22c55e" fill-opacity="0.2" stroke="#22c55e" stroke-width="1"/>
+  <text x="560" y="182" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#22c55e">AP</text>
+  <text x="730" y="183" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#9ca3af">PA/EL</text>
+
+  <!-- Row 4 -->
+  <rect x="20" y="198" width="820" height="38" fill="#1e2533"/>
+  <text x="150" y="221" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#f1f5f9">DynamoDB</text>
+  <text x="370" y="221" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#22c55e">Eventual (opt. strong)</text>
+  <rect x="520" y="206" width="80" height="20" rx="10" fill="#22c55e" fill-opacity="0.2" stroke="#22c55e" stroke-width="1"/>
+  <text x="560" y="220" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#22c55e">AP</text>
+  <text x="730" y="221" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#9ca3af">PA/EL</text>
+
+  <!-- Row 5 -->
+  <rect x="20" y="236" width="820" height="38" fill="#161b22"/>
+  <text x="150" y="259" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#f1f5f9">MongoDB</text>
+  <text x="370" y="259" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#f59e0b">Configurable</text>
+  <rect x="504" y="244" width="112" height="20" rx="10" fill="#f59e0b" fill-opacity="0.2" stroke="#f59e0b" stroke-width="1"/>
+  <text x="560" y="258" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#f59e0b">CP/AP tunable</text>
+  <text x="730" y="259" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#9ca3af">PA/EC</text>
+
+  <!-- Row 6 -->
+  <rect x="20" y="274" width="820" height="38" fill="#1e2533"/>
+  <text x="150" y="297" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#f1f5f9">Redis Cluster</text>
+  <text x="370" y="297" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#22c55e">Eventual (failover)</text>
+  <rect x="520" y="282" width="80" height="20" rx="10" fill="#22c55e" fill-opacity="0.2" stroke="#22c55e" stroke-width="1"/>
+  <text x="560" y="296" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#22c55e">AP</text>
+  <text x="730" y="297" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#9ca3af">PA/EL</text>
+
+  <line x1="20" y1="312" x2="840" y2="312" stroke="#374151" stroke-width="1"/>
+
+  <!-- Footer -->
+  <rect x="20" y="324" width="820" height="40" rx="6" fill="#1e2533" opacity="0.8"/>
+  <text x="430" y="340" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#f59e0b">💡 Choose the weakest consistency model your domain can tolerate</text>
+  <text x="430" y="356" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#6b7280">Stronger consistency = higher latency + lower availability. Measure before committing.</text>
+</svg>

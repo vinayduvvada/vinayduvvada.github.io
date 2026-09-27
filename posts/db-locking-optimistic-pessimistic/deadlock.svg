@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 360" width="700" height="360">
+  <defs>
+    <linearGradient id="bgDL" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117"/>
+      <stop offset="100%" style="stop-color:#1a0a0d"/>
+    </linearGradient>
+    <marker id="arrR" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#e11d48"/>
+    </marker>
+    <marker id="arrO" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#f59e0b"/>
+    </marker>
+    <filter id="glowR">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="700" height="360" fill="url(#bgDL)" rx="12"/>
+  <rect width="700" height="360" fill="none" stroke="#e11d48" stroke-width="1.5" rx="12" opacity="0.4"/>
+
+  <!-- Title -->
+  <text x="350" y="38" text-anchor="middle" font-family="'Courier New', monospace" font-size="16" font-weight="bold" fill="#e11d48" filter="url(#glowR)">Deadlock — The Pessimistic Locking Danger</text>
+
+  <!-- Transaction 1 -->
+  <rect x="50" y="100" width="180" height="80" rx="10" fill="#1e2533" stroke="#e11d48" stroke-width="2"/>
+  <text x="140" y="128" text-anchor="middle" font-family="'Courier New', monospace" font-size="13" font-weight="bold" fill="#e11d48">Transaction 1</text>
+  <text x="140" y="147" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#9ca3af">🔒 holds lock on</text>
+  <text x="140" y="162" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#f59e0b">Row A</text>
+  <text x="140" y="175" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#9ca3af">⏳ waiting for Row B</text>
+
+  <!-- Transaction 2 -->
+  <rect x="470" y="100" width="180" height="80" rx="10" fill="#1e2533" stroke="#e11d48" stroke-width="2"/>
+  <text x="560" y="128" text-anchor="middle" font-family="'Courier New', monospace" font-size="13" font-weight="bold" fill="#e11d48">Transaction 2</text>
+  <text x="560" y="147" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#9ca3af">🔒 holds lock on</text>
+  <text x="560" y="162" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#f59e0b">Row B</text>
+  <text x="560" y="175" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#9ca3af">⏳ waiting for Row A</text>
+
+  <!-- Row A -->
+  <rect x="140" y="250" width="120" height="40" rx="8" fill="#374151" stroke="#f59e0b" stroke-width="2"/>
+  <text x="200" y="273" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" fill="#f59e0b">Row A 🔒</text>
+
+  <!-- Row B -->
+  <rect x="440" y="250" width="120" height="40" rx="8" fill="#374151" stroke="#f59e0b" stroke-width="2"/>
+  <text x="500" y="273" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" fill="#f59e0b">Row B 🔒</text>
+
+  <!-- T1 holds Row A (solid) -->
+  <line x1="200" y1="180" x2="200" y2="248" stroke="#e11d48" stroke-width="2.5" marker-end="url(#arrR)"/>
+  <text x="170" y="218" font-family="'Courier New', monospace" font-size="9" fill="#e11d48">holds</text>
+
+  <!-- T2 holds Row B (solid) -->
+  <line x1="500" y1="180" x2="500" y2="248" stroke="#e11d48" stroke-width="2.5" marker-end="url(#arrR)"/>
+  <text x="506" y="218" font-family="'Courier New', monospace" font-size="9" fill="#e11d48">holds</text>
+
+  <!-- T1 wants Row B (dashed) -->
+  <path d="M230 155 Q350 200 440 265" stroke="#f59e0b" stroke-width="2" fill="none" stroke-dasharray="6,3" marker-end="url(#arrO)"/>
+  <text x="340" y="208" font-family="'Courier New', monospace" font-size="9" fill="#f59e0b">wants</text>
+
+  <!-- T2 wants Row A (dashed) -->
+  <path d="M470 155 Q350 200 260 265" stroke="#f59e0b" stroke-width="2" fill="none" stroke-dasharray="6,3" marker-end="url(#arrO)"/>
+  <text x="345" y="240" font-family="'Courier New', monospace" font-size="9" fill="#f59e0b">wants</text>
+
+  <!-- Deadlock label center -->
+  <circle cx="350" cy="185" r="34" fill="#e11d48" fill-opacity="0.15" stroke="#e11d48" stroke-width="2"/>
+  <text x="350" y="181" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" font-weight="bold" fill="#e11d48">DEAD</text>
+  <text x="350" y="196" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" font-weight="bold" fill="#e11d48">LOCK</text>
+
+  <!-- Resolution note -->
+  <rect x="90" y="308" width="520" height="30" rx="6" fill="#1e2533" stroke="#374151" stroke-width="1"/>
+  <text x="350" y="327" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#6b7280">DB detects cycle → rolls back one victim transaction. Prevention: always acquire locks in consistent order.</text>
+</svg>

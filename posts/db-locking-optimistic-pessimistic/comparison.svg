@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" width="860" height="420">
+  <defs>
+    <linearGradient id="bgCmp" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117"/>
+      <stop offset="100%" style="stop-color:#0f1520"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="860" height="420" fill="url(#bgCmp)" rx="12"/>
+  <rect width="860" height="420" fill="none" stroke="#374151" stroke-width="1.5" rx="12"/>
+
+  <!-- Title -->
+  <text x="430" y="38" text-anchor="middle" font-family="'Courier New', monospace" font-size="17" font-weight="bold" fill="#f1f5f9">Choosing the Right Strategy</text>
+
+  <!-- Table headers -->
+  <rect x="20" y="55" width="820" height="36" rx="0" fill="#1e2533"/>
+  <rect x="20" y="55" width="820" height="36" rx="6" fill="#1e2533"/>
+
+  <text x="200" y="79" text-anchor="middle" font-family="'Courier New', monospace" font-size="13" font-weight="bold" fill="#6b7280">Dimension</text>
+  <text x="490" y="79" text-anchor="middle" font-family="'Courier New', monospace" font-size="13" font-weight="bold" fill="#22c55e">Optimistic</text>
+  <text x="730" y="79" text-anchor="middle" font-family="'Courier New', monospace" font-size="13" font-weight="bold" fill="#e11d48">Pessimistic</text>
+
+  <!-- Vertical dividers -->
+  <line x1="345" y1="55" x2="345" y2="380" stroke="#374151" stroke-width="1.5"/>
+  <line x1="590" y1="55" x2="590" y2="380" stroke="#374151" stroke-width="1.5"/>
+
+  <!-- Row data -->
+  <!-- Row 1 -->
+  <rect x="20" y="91" width="820" height="42" fill="#161b22"/>
+  <text x="200" y="117" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#9ca3af">Lock held</text>
+  <text x="490" y="117" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#22c55e">Never (check at commit)</text>
+  <text x="730" y="117" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#e11d48">Entire transaction duration</text>
+
+  <!-- Row 2 -->
+  <rect x="20" y="133" width="820" height="42" fill="#1e2533"/>
+  <text x="200" y="159" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#9ca3af">Throughput</text>
+  <text x="490" y="152" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#22c55e">High (no blocking reads)</text>
+  <text x="490" y="167" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#22c55e">✦ great for read-heavy workloads</text>
+  <text x="730" y="152" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#e11d48">Lower (serialized writers)</text>
+  <text x="730" y="167" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#e11d48">bottleneck under contention</text>
+
+  <!-- Row 3 -->
+  <rect x="20" y="175" width="820" height="42" fill="#161b22"/>
+  <text x="200" y="201" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#9ca3af">Conflict handling</text>
+  <text x="490" y="194" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#22c55e">Detect at commit → retry</text>
+  <text x="490" y="209" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#6b7280">(wasted work if high contention)</text>
+  <text x="730" y="194" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#e11d48">Prevent via blocking</text>
+  <text x="730" y="209" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#6b7280">(risk of deadlock)</text>
+
+  <!-- Row 4 -->
+  <rect x="20" y="217" width="820" height="42" fill="#1e2533"/>
+  <text x="200" y="243" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#9ca3af">Stale read risk</text>
+  <text x="490" y="236" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#22c55e">Detected &amp; rejected at commit</text>
+  <text x="490" y="251" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#6b7280">(version mismatch caught)</text>
+  <text x="730" y="236" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#22c55e">None — always fresh read</text>
+  <text x="730" y="251" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#6b7280">(lock prevents concurrent writes)</text>
+
+  <!-- Row 5 -->
+  <rect x="20" y="259" width="820" height="42" fill="#161b22"/>
+  <text x="200" y="285" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#9ca3af">Best for</text>
+  <text x="490" y="278" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#22c55e">Low-contention, read-heavy</text>
+  <text x="490" y="293" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#22c55e">profiles, inventory snapshots</text>
+  <text x="730" y="278" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#e11d48">High-contention, write-heavy</text>
+  <text x="730" y="293" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#e11d48">financial txns, seat booking</text>
+
+  <!-- Row 6 -->
+  <rect x="20" y="301" width="820" height="42" fill="#1e2533"/>
+  <text x="200" y="327" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#9ca3af">SQL pattern</text>
+  <text x="490" y="320" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#22c55e">UPDATE … WHERE version = :v</text>
+  <text x="490" y="335" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#6b7280">check rowcount = 1</text>
+  <text x="730" y="320" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#e11d48">SELECT … FOR UPDATE</text>
+  <text x="730" y="335" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#6b7280">or LOCK IN SHARE MODE</text>
+
+  <!-- Bottom border -->
+  <line x1="20" y1="343" x2="840" y2="343" stroke="#374151" stroke-width="1.5"/>
+
+  <!-- Footer rule -->
+  <rect x="20" y="355" width="820" height="46" rx="6" fill="#1e2533" opacity="0.7"/>
+  <text x="430" y="372" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#f59e0b">💡 Rule of Thumb:</text>
+  <text x="430" y="389" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#9ca3af">If P(conflict) is low → Optimistic. If P(conflict) is high or you cannot afford retry → Pessimistic.</text>
+</svg>

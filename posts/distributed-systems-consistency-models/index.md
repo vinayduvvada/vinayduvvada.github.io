@@ -1,5 +1,7 @@
 # Consistency Models in Distributed Systems: CAP, PACELC, and Beyond
 
+![Consistency Models — CAP and Spectrum](./cover.svg)
+
 One of the hardest problems in distributed systems is deciding what guarantees to make about data consistency. Get it wrong and you either sacrifice correctness or availability. Understanding the spectrum of consistency models — and the tradeoffs each entails — is foundational to building reliable systems.
 
 ## The CAP Theorem
@@ -54,6 +56,8 @@ Given no new updates, all nodes will eventually converge to the same value. No g
 A client always sees its own writes, even if other clients may see stale data.
 
 - **Practical**: Session consistency — route a user's reads to the replica that has their latest write.
+
+![Real-World Database Consistency Choices](./cap-pacelc.svg)
 
 ## Real-World Database Choices
 

@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" width="860" height="420">
+  <defs>
+    <linearGradient id="bgOpt" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117"/>
+      <stop offset="100%" style="stop-color:#0f1923"/>
+    </linearGradient>
+    <marker id="arrow-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#22c55e"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#e11d48"/>
+    </marker>
+    <marker id="arrow-gray" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="860" height="420" fill="url(#bgOpt)" rx="12"/>
+  <rect width="860" height="420" fill="none" stroke="#22c55e" stroke-width="1.5" rx="12" opacity="0.3"/>
+
+  <!-- Title -->
+  <text x="430" y="38" text-anchor="middle" font-family="'Courier New', monospace" font-size="17" font-weight="bold" fill="#22c55e">Optimistic Locking — Version-Based Concurrency Control</text>
+
+  <!-- Column headers -->
+  <text x="100" y="72" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" fill="#9ca3af">Transaction 1</text>
+  <text x="430" y="72" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" fill="#9ca3af">Database</text>
+  <text x="740" y="72" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" fill="#9ca3af">Transaction 2</text>
+
+  <!-- Dividers -->
+  <line x1="265" y1="55" x2="265" y2="410" stroke="#1e2533" stroke-width="1.5"/>
+  <line x1="595" y1="55" x2="595" y2="410" stroke="#1e2533" stroke-width="1.5"/>
+
+  <!-- DB column -->
+  <rect x="350" y="85" width="160" height="36" rx="6" fill="#1e2533" stroke="#374151" stroke-width="1.5"/>
+  <text x="430" y="105" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#9ca3af">row: balance=1000</text>
+  <text x="430" y="117" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#f59e0b">version = 1</text>
+
+  <!-- Step 1: T1 reads -->
+  <rect x="30" y="145" width="160" height="32" rx="5" fill="#22c55e" fill-opacity="0.15" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="110" y="165" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#22c55e">SELECT … WHERE id=1</text>
+  <line x1="190" y1="161" x2="348" y2="108" stroke="#22c55e" stroke-width="1.5" marker-end="url(#arrow-green)" stroke-dasharray="5,3" opacity="0.8"/>
+  <text x="260" y="128" font-family="'Courier New', monospace" font-size="9" fill="#22c55e">reads v=1</text>
+
+  <!-- Step 2: T2 reads -->
+  <rect x="660" y="145" width="160" height="32" rx="5" fill="#22c55e" fill-opacity="0.15" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="740" y="165" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#22c55e">SELECT … WHERE id=1</text>
+  <line x1="660" y1="161" x2="512" y2="108" stroke="#22c55e" stroke-width="1.5" marker-end="url(#arrow-green)" stroke-dasharray="5,3" opacity="0.8"/>
+  <text x="570" y="128" font-family="'Courier New', monospace" font-size="9" fill="#22c55e">reads v=1</text>
+
+  <!-- Both hold v=1 locally -->
+  <rect x="30" y="195" width="160" height="28" rx="5" fill="#374151" stroke="#4b5563" stroke-width="1"/>
+  <text x="110" y="213" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#9ca3af">local: v=1, bal=1000</text>
+
+  <rect x="660" y="195" width="160" height="28" rx="5" fill="#374151" stroke="#4b5563" stroke-width="1"/>
+  <text x="740" y="213" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#9ca3af">local: v=1, bal=1000</text>
+
+  <!-- Step 3: T1 commits first -->
+  <rect x="30" y="248" width="160" height="36" rx="5" fill="#22c55e" fill-opacity="0.25" stroke="#22c55e" stroke-width="2"/>
+  <text x="110" y="265" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#22c55e">UPDATE … bal=800</text>
+  <text x="110" y="279" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#22c55e">WHERE version=1</text>
+  <line x1="190" y1="266" x2="348" y2="140" stroke="#22c55e" stroke-width="2" marker-end="url(#arrow-green)" opacity="0.9"/>
+  <text x="235" y="200" font-family="'Courier New', monospace" font-size="9" fill="#22c55e">1 row updated</text>
+
+  <!-- DB updates version -->
+  <rect x="350" y="139" width="160" height="42" rx="6" fill="#22c55e" fill-opacity="0.2" stroke="#22c55e" stroke-width="2"/>
+  <text x="430" y="157" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#22c55e">row: balance=800</text>
+  <text x="430" y="172" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#f59e0b">version = 2 ✓</text>
+
+  <!-- T1 committed badge -->
+  <rect x="30" y="300" width="160" height="26" rx="5" fill="#22c55e" fill-opacity="0.4" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="110" y="318" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" font-weight="bold" fill="#fff">COMMITTED ✓</text>
+
+  <!-- Step 4: T2 tries to commit -->
+  <rect x="660" y="248" width="160" height="36" rx="5" fill="#e11d48" fill-opacity="0.2" stroke="#e11d48" stroke-width="2"/>
+  <text x="740" y="265" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#e11d48">UPDATE … bal=900</text>
+  <text x="740" y="279" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#e11d48">WHERE version=1</text>
+  <line x1="660" y1="266" x2="512" y2="175" stroke="#e11d48" stroke-width="2" marker-end="url(#arrow-red)" stroke-dasharray="4,3" opacity="0.9"/>
+  <text x="575" y="215" font-family="'Courier New', monospace" font-size="9" fill="#e11d48">0 rows!</text>
+
+  <!-- T2 conflict -->
+  <rect x="660" y="300" width="160" height="26" rx="5" fill="#e11d48" fill-opacity="0.3" stroke="#e11d48" stroke-width="1.5"/>
+  <text x="740" y="318" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#fff">CONFLICT → RETRY</text>
+
+  <!-- T2 re-reads -->
+  <rect x="660" y="345" width="160" height="28" rx="5" fill="#22c55e" fill-opacity="0.15" stroke="#22c55e" stroke-width="1"/>
+  <text x="740" y="363" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#22c55e">re-read v=2, retry…</text>
+
+  <!-- Legend -->
+  <rect x="20" y="388" width="820" height="22" rx="4" fill="#1e2533" opacity="0.6"/>
+  <text x="430" y="403" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#6b7280">No locks held during read or business logic phase — only an atomic check-and-update at commit time.</text>
+</svg>

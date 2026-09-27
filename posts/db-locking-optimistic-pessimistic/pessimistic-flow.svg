@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 440" width="860" height="440">
+  <defs>
+    <linearGradient id="bgPes" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117"/>
+      <stop offset="100%" style="stop-color:#1a0d11"/>
+    </linearGradient>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#e11d48"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#22c55e"/>
+    </marker>
+  </defs>
+
+  <rect width="860" height="440" fill="url(#bgPes)" rx="12"/>
+  <rect width="860" height="440" fill="none" stroke="#e11d48" stroke-width="1.5" rx="12" opacity="0.3"/>
+
+  <!-- Title -->
+  <text x="430" y="38" text-anchor="middle" font-family="'Courier New', monospace" font-size="17" font-weight="bold" fill="#e11d48">Pessimistic Locking — SELECT FOR UPDATE</text>
+
+  <!-- Column headers -->
+  <text x="100" y="72" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" fill="#9ca3af">Transaction 1</text>
+  <text x="430" y="72" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" fill="#9ca3af">Database (Row Lock)</text>
+  <text x="740" y="72" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" fill="#9ca3af">Transaction 2</text>
+
+  <line x1="265" y1="55" x2="265" y2="430" stroke="#1e2533" stroke-width="1.5"/>
+  <line x1="595" y1="55" x2="595" y2="430" stroke="#1e2533" stroke-width="1.5"/>
+
+  <!-- DB resource -->
+  <rect x="340" y="83" width="180" height="40" rx="6" fill="#1e2533" stroke="#374151" stroke-width="1.5"/>
+  <text x="430" y="100" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#9ca3af">row: balance=1000</text>
+  <text x="430" y="116" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#6b7280">lock status: FREE</text>
+
+  <!-- T1: SELECT FOR UPDATE -->
+  <rect x="30" y="148" width="200" height="34" rx="5" fill="#e11d48" fill-opacity="0.2" stroke="#e11d48" stroke-width="1.5"/>
+  <text x="130" y="163" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#e11d48">SELECT balance FROM t</text>
+  <text x="130" y="177" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#e11d48">WHERE id=1 FOR UPDATE</text>
+  <line x1="230" y1="165" x2="338" y2="103" stroke="#e11d48" stroke-width="2" marker-end="url(#arr-red)" opacity="0.9"/>
+
+  <!-- DB acquires lock -->
+  <rect x="340" y="145" width="180" height="40" rx="6" fill="#e11d48" fill-opacity="0.2" stroke="#e11d48" stroke-width="2"/>
+  <text x="430" y="161" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#e11d48">🔒 LOCKED by T1</text>
+  <text x="430" y="177" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#9ca3af">balance=1000 returned</text>
+  <line x1="338" y1="165" x2="230" y2="165" stroke="#e11d48" stroke-width="1.5" marker-end="url(#arr-red)" stroke-dasharray="4,2" opacity="0.7"/>
+
+  <!-- T1 doing work -->
+  <rect x="30" y="205" width="200" height="28" rx="5" fill="#374151" stroke="#4b5563" stroke-width="1"/>
+  <text x="130" y="223" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#9ca3af">doing business logic…</text>
+
+  <!-- T2 tries -->
+  <rect x="640" y="148" width="200" height="34" rx="5" fill="#6b7280" fill-opacity="0.2" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="740" y="163" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#9ca3af">SELECT … FOR UPDATE</text>
+  <text x="740" y="177" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#6b7280">WHERE id=1</text>
+  <line x1="640" y1="165" x2="522" y2="165" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)" stroke-dasharray="4,3" opacity="0.7"/>
+
+  <!-- T2 blocked -->
+  <rect x="640" y="195" width="200" height="80" rx="5" fill="#374151" fill-opacity="0.5" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="740" y="222" text-anchor="middle" font-family="'Courier New', monospace" font-size="22">⏸</text>
+  <text x="740" y="247" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#9ca3af">BLOCKED</text>
+  <text x="740" y="264" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#6b7280">waiting for lock…</text>
+
+  <!-- Vertical wait indicator -->
+  <line x1="760" y1="280" x2="760" y2="335" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.5"/>
+
+  <!-- T1 UPDATE -->
+  <rect x="30" y="255" width="200" height="34" rx="5" fill="#e11d48" fill-opacity="0.25" stroke="#e11d48" stroke-width="2"/>
+  <text x="130" y="272" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#e11d48">UPDATE t SET bal=800</text>
+  <text x="130" y="286" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#e11d48">WHERE id=1</text>
+  <line x1="230" y1="272" x2="338" y2="200" stroke="#e11d48" stroke-width="2" marker-end="url(#arr-red)" opacity="0.9"/>
+
+  <!-- T1 COMMIT + release -->
+  <rect x="30" y="308" width="200" height="28" rx="5" fill="#22c55e" fill-opacity="0.3" stroke="#22c55e" stroke-width="2"/>
+  <text x="130" y="326" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" font-weight="bold" fill="#22c55e">COMMIT — lock released</text>
+  <line x1="230" y1="322" x2="338" y2="240" stroke="#22c55e" stroke-width="2" marker-end="url(#arr-green2)" opacity="0.9"/>
+
+  <!-- DB lock released -->
+  <rect x="340" y="230" width="180" height="40" rx="6" fill="#22c55e" fill-opacity="0.15" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="430" y="246" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#22c55e">balance=800</text>
+  <text x="430" y="262" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#22c55e">🔓 lock: FREE</text>
+
+  <!-- T2 unblocked arrow -->
+  <line x1="522" y1="250" x2="640" y2="288" stroke="#22c55e" stroke-width="2" marker-end="url(#arr-green2)" stroke-dasharray="4,2" opacity="0.8"/>
+  <text x="592" y="278" font-family="'Courier New', monospace" font-size="9" fill="#22c55e">unblocked</text>
+
+  <!-- T2 now executes -->
+  <rect x="640" y="340" width="200" height="34" rx="5" fill="#e11d48" fill-opacity="0.2" stroke="#e11d48" stroke-width="1.5"/>
+  <text x="740" y="356" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" fill="#e11d48">reads bal=800</text>
+  <text x="740" y="370" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#e11d48">acquires lock, proceeds</text>
+
+  <!-- Legend -->
+  <rect x="20" y="406" width="820" height="22" rx="4" fill="#1e2533" opacity="0.6"/>
+  <text x="430" y="421" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#6b7280">Lock held for entire transaction duration. T2 sees committed data — no stale reads, but serialized throughput.</text>
+</svg>

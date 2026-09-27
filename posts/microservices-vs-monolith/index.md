@@ -1,5 +1,7 @@
 # Microservices vs. Monolith: Choosing the Right Architecture
 
+![Microservices vs. Monolith Architecture](./cover.svg)
+
 Few architectural debates generate more heat than microservices vs. monolith. The answer isn't universal — it depends on your team, domain, and scale. Having worked on both (a monolithic SaaS platform at ServiceNow and distributed microservice systems at Microsoft, Live Nation, and StubHub), here's an honest look at the tradeoffs.
 
 ## What Is a Monolith?
@@ -74,6 +76,8 @@ For small teams, microservices create coordination overhead without the benefit.
 - Proven domain model — you know where your bounded contexts are.
 
 ## Migration Strategy: Monolith → Microservices
+
+![Strangler Fig Migration Pattern](./strangler-fig.svg)
 
 The most common migration path is the **Strangler Fig**:
 

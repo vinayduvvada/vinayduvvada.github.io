@@ -4,6 +4,6 @@
     "excerpt": "The microservices vs. monolith debate is rarely black and white. This post explores the real tradeoffs, migration strategies, and how to decide what's right for your system.",
     "date": "May 22, 2025",
     "readTime": "8 min read",
-    "coverImage": "cover.jpg",
+    "coverImage": "cover.svg",
     "tags": ["Architecture", "Microservices", "System Design", "Cloud"]
 }

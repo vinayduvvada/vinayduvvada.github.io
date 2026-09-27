@@ -1,5 +1,7 @@
 # Load Balancers Deep Dive: L4 vs L7, Algorithms, and Modern ADC
 
+![Load Balancer Architecture Overview](./cover.svg)
+
 Load balancers are among the most critical — and least glamorous — components in any distributed system. They're the invisible traffic directors that make high availability, horizontal scaling, and zero-downtime deploys possible. I spent years building automation for ServiceNow's Application Delivery Controller (ADC) migration, so here's a thorough breakdown of how modern load balancing works.
 
 ## OSI Layer: L4 vs L7
@@ -41,6 +43,8 @@ L7 load balancers inspect the full HTTP request before routing. They terminate t
 - gRPC-aware routing.
 
 **Use when**: HTTP/HTTPS traffic, microservices, API gateways, content-based routing.
+
+![L4 vs L7 Request Flow](./l4-vs-l7.svg)
 
 ## Load Balancing Algorithms
 

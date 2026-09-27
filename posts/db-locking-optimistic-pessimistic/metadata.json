@@ -1,0 +1,9 @@
+{
+    "id": "db-locking-optimistic-pessimistic",
+    "title": "Optimistic vs. Pessimistic Locking in Databases: A Deep Dive",
+    "excerpt": "Concurrency control is one of the most misunderstood corners of database engineering. This post breaks down optimistic and pessimistic locking — how they work, when to use each, and the real-world tradeoffs that separate correct systems from broken ones.",
+    "date": "September 3, 2026",
+    "readTime": "12 min read",
+    "coverImage": "cover.svg",
+    "tags": ["Database", "Concurrency", "System Design", "PostgreSQL"]
+}

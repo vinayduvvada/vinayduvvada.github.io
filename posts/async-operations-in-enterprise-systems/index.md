@@ -1,5 +1,7 @@
 # The Hidden Complexity of Async Operations in Enterprise Systems
 
+![Sync vs Async Overview](./cover.svg)
+
 When you click "Submit" on a form and get an instant confirmation, one of two things happened: either the work was done right then and there, or the system quietly handed it off to be done later. That second case — *do it later, tell me when it's done* — is what we call an **asynchronous operation**, and it is everywhere in modern enterprise software.
 
 Async sounds great in theory. In practice, it introduces a class of problems that are surprisingly hard to solve cleanly. This post walks through what async operations are, why we use them, what can go wrong, and a real-world pattern I built to handle one of the trickiest edge cases: **what do you do when the system doesn't give you a receipt?**
@@ -84,6 +86,8 @@ This is fragile. What if the system is under load and takes twice as long? You e
 Better, but what are you polling for? If you don't have an ID, you can't ask "is job XYZ done?" You can only observe the global state of the system — and the global state might change for many reasons unrelated to your operation.
 
 ### The Pattern That Works: Anchor-Then-Observe
+
+![Anchor-Then-Observe Pattern](./anchor-observe.svg)
 
 The approach that turned out to be reliable goes like this:
 

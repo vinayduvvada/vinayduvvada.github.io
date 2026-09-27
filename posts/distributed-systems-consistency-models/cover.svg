@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="900" height="480">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117"/>
+      <stop offset="100%" style="stop-color:#0d1a10"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="900" height="480" fill="url(#bg)"/>
+  <g stroke="#1e2533" stroke-width="1" opacity="0.25">
+    <line x1="0" y1="96" x2="900" y2="96"/><line x1="0" y1="192" x2="900" y2="192"/>
+    <line x1="0" y1="288" x2="900" y2="288"/><line x1="0" y1="384" x2="900" y2="384"/>
+    <line x1="90" y1="0" x2="90" y2="480"/><line x1="180" y1="0" x2="180" y2="480"/>
+    <line x1="270" y1="0" x2="270" y2="480"/><line x1="360" y1="0" x2="360" y2="480"/>
+    <line x1="450" y1="0" x2="450" y2="480"/><line x1="540" y1="0" x2="540" y2="480"/>
+    <line x1="630" y1="0" x2="630" y2="480"/><line x1="720" y1="0" x2="720" y2="480"/>
+    <line x1="810" y1="0" x2="810" y2="480"/>
+  </g>
+
+  <!-- Title -->
+  <text x="450" y="50" text-anchor="middle" font-family="'Courier New', monospace" font-size="21" font-weight="bold" fill="#f1f5f9" filter="url(#glow)">Consistency Models in Distributed Systems</text>
+  <text x="450" y="74" text-anchor="middle" font-family="'Courier New', monospace" font-size="12" fill="#6b7280">CAP · PACELC · Strong → Eventual</text>
+
+  <!-- CAP Triangle -->
+  <!-- C vertex -->
+  <polygon points="450,110 280,340 620,340" fill="none" stroke="#374151" stroke-width="2"/>
+  <circle cx="450" cy="110" r="40" fill="#e11d48" fill-opacity="0.15" stroke="#e11d48" stroke-width="2"/>
+  <text x="450" y="105" text-anchor="middle" font-family="'Courier New', monospace" font-size="14" font-weight="bold" fill="#e11d48">C</text>
+  <text x="450" y="122" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#e11d48">Consistency</text>
+  <text x="450" y="135" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#6b7280">latest write</text>
+
+  <!-- A vertex -->
+  <circle cx="280" cy="340" r="40" fill="#22c55e" fill-opacity="0.15" stroke="#22c55e" stroke-width="2"/>
+  <text x="280" y="335" text-anchor="middle" font-family="'Courier New', monospace" font-size="14" font-weight="bold" fill="#22c55e">A</text>
+  <text x="280" y="352" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#22c55e">Availability</text>
+  <text x="280" y="365" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#6b7280">no errors</text>
+
+  <!-- P vertex -->
+  <circle cx="620" cy="340" r="40" fill="#3b82f6" fill-opacity="0.15" stroke="#3b82f6" stroke-width="2"/>
+  <text x="620" y="335" text-anchor="middle" font-family="'Courier New', monospace" font-size="14" font-weight="bold" fill="#3b82f6">P</text>
+  <text x="620" y="352" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#3b82f6">Partition</text>
+  <text x="620" y="365" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#6b7280">Tolerance</text>
+
+  <!-- CP zone -->
+  <text x="370" y="220" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#e11d48" opacity="0.8">CP</text>
+  <text x="370" y="234" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#6b7280">PostgreSQL</text>
+  <text x="370" y="246" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#6b7280">HBase</text>
+
+  <!-- AP zone -->
+  <text x="530" y="220" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#22c55e" opacity="0.8">AP</text>
+  <text x="530" y="234" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#6b7280">Cassandra</text>
+  <text x="530" y="246" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#6b7280">DynamoDB</text>
+
+  <!-- P always -->
+  <text x="450" y="318" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#f59e0b">P is always required</text>
+  <text x="450" y="330" text-anchor="middle" font-family="'Courier New', monospace" font-size="9" fill="#6b7280">choose C or A during partition</text>
+
+  <!-- Consistency spectrum -->
+  <rect x="680" y="100" width="190" height="300" rx="10" fill="#1e2533" stroke="#374151" stroke-width="1.5"/>
+  <text x="775" y="122" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" font-weight="bold" fill="#f1f5f9">Consistency</text>
+  <text x="775" y="136" text-anchor="middle" font-family="'Courier New', monospace" font-size="11" font-weight="bold" fill="#f1f5f9">Spectrum</text>
+
+  <rect x="695" y="148" width="160" height="28" rx="4" fill="#e11d48" fill-opacity="0.3" stroke="#e11d48" stroke-width="1.5"/>
+  <text x="775" y="166" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#e11d48">Strong / Linearizable</text>
+
+  <rect x="695" y="185" width="160" height="28" rx="4" fill="#f97316" fill-opacity="0.25" stroke="#f97316" stroke-width="1"/>
+  <text x="775" y="203" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#f97316">Sequential</text>
+
+  <rect x="695" y="222" width="160" height="28" rx="4" fill="#f59e0b" fill-opacity="0.2" stroke="#f59e0b" stroke-width="1"/>
+  <text x="775" y="240" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#f59e0b">Causal</text>
+
+  <rect x="695" y="259" width="160" height="28" rx="4" fill="#3b82f6" fill-opacity="0.2" stroke="#3b82f6" stroke-width="1"/>
+  <text x="775" y="277" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#3b82f6">Read-Your-Writes</text>
+
+  <rect x="695" y="296" width="160" height="28" rx="4" fill="#22c55e" fill-opacity="0.2" stroke="#22c55e" stroke-width="1"/>
+  <text x="775" y="314" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#22c55e">Eventual</text>
+
+  <!-- Arrow down spectrum -->
+  <line x1="870" y1="155" x2="870" y2="320" stroke="#374151" stroke-width="2"/>
+  <polygon points="866,316 874,316 870,324" fill="#374151"/>
+  <text x="882" y="240" font-family="'Courier New', monospace" font-size="9" fill="#6b7280" transform="rotate(90,882,240)">weaker →</text>
+
+  <!-- Bottom -->
+  <rect x="30" y="408" width="630" height="45" rx="8" fill="#1e2533" stroke="#374151" stroke-width="1"/>
+  <text x="345" y="425" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#f59e0b">PACELC extends CAP:</text>
+  <text x="345" y="442" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#9ca3af">During Partition: A vs C   |   Else (normal): Latency vs Consistency</text>
+</svg>
