@@ -1,0 +1,9 @@
+{
+    "id": "cross-team-conflict-resolution",
+    "title": "Behavioral Interview: Resolving a Cross-Team Conflict During a Cross-Region Migration",
+    "excerpt": "A real example of a cross-team conflict: two teams disagreed on when to update a secondary load balancer's configuration during a cross-region instance move. Here's how the conflict surfaced, how we resolved it, and what I learned about influence without authority.",
+    "date": "October 28, 2026",
+    "readTime": "7 min read",
+    "coverImage": "cover.svg",
+    "tags": ["Behavioral", "Career", "Collaboration", "Infrastructure"]
+}
