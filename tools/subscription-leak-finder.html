@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Leak Finder — Free Recurring Charge Scanner | Vinay Duvvada</title>
+    <meta name="description" content="Free subscription leak finder. Upload a bank or card CSV, find recurring charges, price increases, and duplicates — in your browser only. No bank login, no sign-up.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/subscription-finder.css">
+</head>
+<body>
+    <header class="header" id="header">
+        <nav class="navbar">
+            <a href="../index.html" class="logo">V<span class="logo-dot">.</span></a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+            <div class="nav-links" id="navLinks">
+                <a href="../index.html">Home</a>
+                <a href="../blog.html">Blog</a>
+                <a href="../projects.html">Projects</a>
+                <a href="../tools.html" class="active">Tools</a>
+                <a href="../about.html">About</a>
+            </div>
+            <button class="theme-toggle" aria-label="Dark theme" title="Dark"><i class="fas fa-moon"></i></button>
+        </nav>
+    </header>
+
+    <main class="planner-page">
+        <section class="section planner-hero">
+            <div class="section-container">
+                <p class="planner-eyebrow"><i class="fas fa-magnifying-glass-dollar"></i> Free tool &middot; No bank login &middot; Private by design</p>
+                <h1 class="planner-title">Subscription Leak Finder</h1>
+                <p class="planner-subtitle">
+                    Upload a bank or card statement CSV and find the subscriptions
+                    quietly charging you every month — including price increases
+                    and duplicates. Your file never leaves this page.
+                </p>
+            </div>
+        </section>
+
+        <section class="section planner-main">
+            <div class="section-container">
+                <div class="planner-card">
+                    <h2><i class="fas fa-file-csv"></i> 1. Upload a statement CSV</h2>
+                    <p class="sf-note">Export a CSV from your bank or card (usually: Date, Description, Amount). The file is read in your browser only — it is never uploaded.</p>
+                    <div class="sf-drop" id="dropZone">
+                        <i class="fas fa-cloud-arrow-up"></i>
+                        <p><strong>Drop a CSV here</strong> or</p>
+                        <label class="btn btn-primary" for="csvFile">Choose a CSV file</label>
+                        <input type="file" id="csvFile" accept=".csv,text/csv" hidden>
+                    </div>
+                    <div class="sf-actions">
+                        <button type="button" class="btn btn-outline" id="sampleBtn"><i class="fas fa-flask"></i> Try sample data</button>
+                        <button type="button" class="btn btn-outline" id="clearBtn">Clear results</button>
+                        <span class="sf-file-info" id="fileInfo"></span>
+                    </div>
+                    <p class="form-error" id="csvError" role="alert" hidden></p>
+                </div>
+
+                <div class="result-cards" id="summaryCards" hidden>
+                    <div class="result-card"><span class="result-label">Recurring charges found</span><strong class="result-value" id="statCount">0</strong><span class="result-sub" id="statCountSub">—</span></div>
+                    <div class="result-card"><span class="result-label">Monthly cost</span><strong class="result-value" id="statMonthly">$0</strong><span class="result-sub">all recurring, monthly equivalent</span></div>
+                    <div class="result-card"><span class="result-label">Yearly cost</span><strong class="result-value" id="statYearly">$0</strong><span class="result-sub">monthly cost &times; 12</span></div>
+                    <div class="result-card result-card--save"><span class="result-label">Flagged</span><strong class="result-value" id="statFlagged">0</strong><span class="result-sub">price increases or duplicates</span></div>
+                </div>
+
+                <div class="planner-card" id="resultsCard" hidden>
+                    <div class="schedule-head">
+                        <h3><i class="fas fa-repeat"></i> Recurring charges</h3>
+                        <button type="button" class="btn btn-outline btn-small" id="exportBtn"><i class="fas fa-download"></i> Export CSV</button>
+                    </div>
+                    <p class="sf-note">A charge counts as recurring if the same merchant appears at least twice. Price changes and similar names are flagged for you to check.</p>
+                    <div class="table-wrap">
+                        <table class="schedule-table">
+                            <thead><tr><th>Merchant</th><th>Times</th><th>Last amount</th><th>Monthly</th><th>Last charged</th><th>Flags</th><th></th></tr></thead>
+                            <tbody id="resultsBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <form class="planner-card" id="manualForm">
+                    <h2><i class="fas fa-plus"></i> 2. Or add a subscription manually</h2>
+                    <div class="sf-manual-grid">
+                        <label class="field"><span>Name</span><input type="text" id="subName" placeholder="Netflix" required maxlength="60"></label>
+                        <label class="field"><span>Amount ($)</span><input type="number" id="subAmount" min="0.01" step="0.01" placeholder="15.49" required></label>
+                        <label class="field"><span>Frequency</span><select id="subFreq"><option value="monthly">Monthly</option><option value="yearly">Yearly</option><option value="weekly">Weekly</option></select></label>
+                        <label class="field"><span>Last charged</span><input type="date" id="subDate"></label>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Add subscription</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="section section-alt planner-faq">
+            <div class="section-container">
+                <h2 class="section-title">How it works</h2>
+                <div class="faq-grid">
+                    <div class="faq-item"><h3><i class="fas fa-lock"></i> Is my statement private?</h3><p>Yes. The CSV is parsed with JavaScript in your browser. It is never uploaded, stored on a server, or sent anywhere.</p></div>
+                    <div class="faq-item"><h3><i class="fas fa-repeat"></i> What counts as recurring?</h3><p>The same merchant name (after cleaning up numbers and location codes) appearing at least twice, with amounts within a small range or with a clear price change.</p></div>
+                    <div class="faq-item"><h3><i class="fas fa-triangle-exclamation"></i> What gets flagged?</h3><p>A price increase between the first and last charge, and similar merchant names that may be the same service billed twice.</p></div>
+                    <div class="faq-item"><h3><i class="fas fa-file-csv"></i> What CSV format works?</h3><p>Most bank/card exports work: a header row with Date, Description, and Amount columns (in any order). Amounts can be negative for spending, or positive — the tool uses the absolute value.</p></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand"><a href="../index.html" class="footer-logo">V<span class="logo-dot">.</span></a><p>Building, writing, and sharing — one commit at a time.</p></div>
+            <div class="footer-nav"><h4>Navigate</h4><a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../projects.html">Projects</a><a href="../tools.html">Tools</a><a href="../about.html">About</a></div>
+            <div class="footer-social"><h4>Connect</h4><div class="social-icons"><a href="https://github.com/vinayduvvada" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a><a href="https://linkedin.com/in/vinayduvvada" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a><a href="mailto:vinay.chowdary518@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a></div></div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2025-2026 Vinay Duvvada. All rights reserved.</p></div>
+    </footer>
+
+    <script src="../js/theme.js"></script>
+    <script src="../js/nav.js"></script>
+    <script src="../js/subscription-finder.js"></script>
+</body>
+</html>

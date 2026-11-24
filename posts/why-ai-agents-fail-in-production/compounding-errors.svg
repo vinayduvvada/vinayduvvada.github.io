@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="520" viewBox="0 0 1000 520" role="img" aria-label="Compounding errors: per-step accuracy versus workflow success">
+  <rect width="1000" height="520" fill="#0a0a0a"/>
+  <text x="60" y="50" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="700" fill="#e5e5e5">Compounding errors</text>
+  <text x="60" y="82" font-family="Inter, Arial, sans-serif" font-size="18" fill="#8c8c8c">Workflow success falls fast as steps multiply — even at high per-step accuracy</text>
+  <!-- axes -->
+  <line x1="90" y1="430" x2="920" y2="430" stroke="#8c8c8c" stroke-width="2"/>
+  <line x1="90" y1="430" x2="90" y2="110" stroke="#8c8c8c" stroke-width="2"/>
+  <text x="60" y="465" font-family="Inter, Arial, sans-serif" font-size="16" fill="#8c8c8c">0 steps</text>
+  <text x="880" y="465" font-family="Inter, Arial, sans-serif" font-size="16" fill="#8c8c8c">50 steps</text>
+  <text x="20" y="130" font-family="Inter, Arial, sans-serif" font-size="16" fill="#8c8c8c">100%</text>
+  <text x="20" y="430" font-family="Inter, Arial, sans-serif" font-size="16" fill="#8c8c8c">0%</text>
+  <!-- gridlines -->
+  <line x1="90" y1="190" x2="920" y2="190" stroke="#8c8c8c" stroke-width="1" opacity="0.25"/>
+  <line x1="90" y1="270" x2="920" y2="270" stroke="#8c8c8c" stroke-width="1" opacity="0.25"/>
+  <line x1="90" y1="350" x2="920" y2="350" stroke="#8c8c8c" stroke-width="1" opacity="0.25"/>
+  <!-- curves: x = 90 + steps/50*830, y = 430 - success*320 ; success = p^steps -->
+  <!-- 85% curve: steep fall -->
+  <path d="M 90 110 L 256 366 L 422 410 L 588 424 L 754 428 L 920 430" fill="none" stroke="#e50914" stroke-width="3"/>
+  <!-- 95% curve -->
+  <path d="M 90 110 L 256 254 L 422 310 L 588 342 L 754 363 L 920 377" fill="none" stroke="#e5e5e5" stroke-width="3"/>
+  <!-- 99% curve -->
+  <path d="M 90 110 L 256 140 L 422 168 L 588 194 L 754 218 L 920 238" fill="none" stroke="#8c8c8c" stroke-width="3"/>
+  <!-- labelled points -->
+  <circle cx="256" cy="366" r="7" fill="#e50914"/>
+  <text x="270" y="360" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#e50914">10 steps ~20%</text>
+  <circle cx="422" cy="310" r="7" fill="#e5e5e5"/>
+  <text x="440" y="304" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#e5e5e5">20 steps ~36%</text>
+  <circle cx="920" cy="238" r="7" fill="#8c8c8c"/>
+  <text x="700" y="220" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" fill="#e5e5e5">50 steps ~60% success</text>
+  <!-- legend -->
+  <text x="90" y="505" font-family="Inter, Arial, sans-serif" font-size="17" fill="#e50914">— 85% per step</text>
+  <text x="300" y="505" font-family="Inter, Arial, sans-serif" font-size="17" fill="#e5e5e5">— 95% per step</text>
+  <text x="510" y="505" font-family="Inter, Arial, sans-serif" font-size="17" fill="#8c8c8c">— 99% per step</text>
+</svg>

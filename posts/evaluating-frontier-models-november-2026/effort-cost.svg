@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="520" viewBox="0 0 1000 520" role="img" aria-label="Gemini 4 Neon reasoning effort versus time: medium 8.3 minutes, high 14.8 minutes, xhigh 21.5 minutes">
+  <rect width="1000" height="520" fill="#0a0a0a"/>
+  <text x="60" y="50" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#e5e5e5">Gemini 4 Neon — effort vs. time</text>
+  <text x="60" y="82" font-family="Inter, Arial, sans-serif" font-size="18" fill="#8c8c8c">Weighted time rises sharply as reasoning effort increases.</text>
+  <g font-family="Inter, Arial, sans-serif">
+    <text x="60" y="170" font-size="20" font-weight="600" fill="#e5e5e5">Medium</text>
+    <rect x="200" y="140" width="290" height="44" fill="#e50914" opacity="0.55"/>
+    <text x="500" y="170" font-size="20" fill="#e5e5e5">8.3 min</text>
+    <text x="60" y="270" font-size="20" font-weight="600" fill="#e5e5e5">High</text>
+    <rect x="200" y="240" width="518" height="44" fill="#e50914" opacity="0.75"/>
+    <text x="728" y="270" font-size="20" fill="#e5e5e5">14.8 min</text>
+    <text x="60" y="370" font-size="20" font-weight="600" fill="#e5e5e5">XHigh</text>
+    <rect x="200" y="340" width="752" height="44" fill="#e50914"/>
+    <text x="962" y="370" font-size="20" fill="#e5e5e5" text-anchor="end" dy="-52">21.5 min</text>
+  </g>
+  <line x1="60" y1="420" x2="940" y2="420" stroke="#2a2a2a" stroke-width="2"/>
+  <text x="60" y="460" font-family="Inter, Arial, sans-serif" font-size="18" fill="#8c8c8c">Higher effort costs time — and, in practice, cost.</text>
+  <text x="60" y="490" font-family="Inter, Arial, sans-serif" font-size="18" fill="#8c8c8c">Report effort, cost, and latency together with any score.</text>
+</svg>

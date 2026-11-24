@@ -1,0 +1,54 @@
+/* Subscription Leak Finder — uses site variables from css/style.css */
+.planner-page { padding-top: 4.5rem; }
+.planner-hero { padding-bottom: 2rem; text-align: center; }
+.planner-eyebrow { color: var(--primary); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 0.75rem; }
+.planner-title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; color: var(--text-bright); letter-spacing: -1px; line-height: 1.1; margin-bottom: 1rem; }
+.planner-subtitle { max-width: 640px; margin: 0 auto 1.75rem; color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; }
+.planner-main { padding-top: 1rem; }
+.planner-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.75rem; margin-bottom: 1.5rem; }
+.planner-card h2, .planner-card h3 { color: var(--text-bright); font-size: 1.2rem; margin-bottom: 1rem; }
+.planner-card h2 i, .planner-card h3 i { color: var(--primary); margin-right: 0.4rem; }
+.field { display: block; margin-bottom: 0.5rem; }
+.field > span { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
+.field input, .field select { width: 100%; padding: 0.7rem 0.9rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-card); color: var(--text); font-family: var(--font); font-size: 1rem; outline: none; }
+.field input:focus, .field select:focus { border-color: var(--primary); }
+.sf-note { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 1rem; }
+.sf-drop { border: 2px dashed var(--border); border-radius: var(--radius-lg); padding: 2.5rem 1.5rem; text-align: center; color: var(--text-muted); margin-bottom: 1rem; transition: border-color var(--transition); }
+.sf-drop.drag-over { border-color: var(--primary); background: rgba(229, 9, 20, 0.06); }
+.sf-drop i { font-size: 2rem; color: var(--primary); margin-bottom: 0.75rem; }
+.sf-drop p { margin-bottom: 1rem; }
+.sf-actions { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+.sf-file-info { color: var(--text-muted); font-size: 0.88rem; }
+.form-error { background: rgba(229, 9, 20, 0.12); border: 1px solid rgba(229, 9, 20, 0.4); color: #ff6b72; border-radius: var(--radius); padding: 0.75rem 1rem; font-size: 0.9rem; margin-top: 1rem; }
+.result-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+.result-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; }
+.result-card--save { background: linear-gradient(135deg, var(--bg-elevated), rgba(229, 9, 20, 0.08)); }
+.result-label { display: block; font-size: 0.78rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.4rem; }
+.result-value { display: block; font-size: 1.45rem; font-weight: 800; color: var(--text-bright); line-height: 1.2; }
+.result-sub { display: block; font-size: 0.82rem; color: var(--text-muted); margin-top: 0.3rem; }
+.schedule-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
+.schedule-head h3 { margin-bottom: 0; }
+.btn-small { padding: 0.5rem 1rem; font-size: 0.85rem; }
+.table-wrap { overflow-x: auto; }
+.schedule-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.schedule-table th, .schedule-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); text-align: right; white-space: nowrap; }
+.schedule-table th:first-child, .schedule-table td:first-child { text-align: left; }
+.schedule-table th { color: var(--text-muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.schedule-table td { color: var(--text); }
+.flag { display: inline-block; background: rgba(229, 9, 20, 0.15); color: var(--primary); border-radius: 20px; padding: 0.15rem 0.6rem; font-size: 0.78rem; font-weight: 600; margin-right: 0.3rem; }
+.flag--ok { background: rgba(255, 255, 255, 0.06); color: var(--text-muted); }
+.sf-manual-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2rem; }
+.faq-item { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; }
+.faq-item h3 { color: var(--text-bright); font-size: 1.05rem; margin-bottom: 0.6rem; }
+.faq-item h3 i { color: var(--primary); margin-right: 0.4rem; }
+.faq-item p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; }
+@media (max-width: 960px) {
+  .result-cards { grid-template-columns: repeat(2, 1fr); }
+  .sf-manual-grid { grid-template-columns: 1fr 1fr; }
+  .faq-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .result-cards { grid-template-columns: 1fr; }
+  .sf-manual-grid { grid-template-columns: 1fr; }
+}

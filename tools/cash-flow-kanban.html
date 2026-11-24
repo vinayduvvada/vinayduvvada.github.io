@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Flow Kanban — Free Bill Board | Vinay Duvvada</title>
+    <meta name="description" content="Free cash flow Kanban board. Drag bills between Upcoming, Due Soon, and Paid, see what's left after bills, and forecast your lowest balance before payday. Private — runs entirely in your browser.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/cash-flow-kanban.css">
+</head>
+<body>
+    <header class="header" id="header">
+        <nav class="navbar">
+            <a href="../index.html" class="logo">V<span class="logo-dot">.</span></a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+            <div class="nav-links" id="navLinks">
+                <a href="../index.html">Home</a>
+                <a href="../blog.html">Blog</a>
+                <a href="../projects.html">Projects</a>
+                <a href="../tools.html" class="active">Tools</a>
+                <a href="../about.html">About</a>
+            </div>
+            <button class="theme-toggle" aria-label="Dark theme" title="Dark"><i class="fas fa-moon"></i></button>
+        </nav>
+    </header>
+
+    <main class="planner-page">
+        <section class="section planner-hero">
+            <div class="section-container">
+                <p class="planner-eyebrow"><i class="fas fa-columns"></i> Free tool &middot; No sign-up &middot; Private by design</p>
+                <h1 class="planner-title">Cash Flow Kanban</h1>
+                <p class="planner-subtitle">
+                    Drag your bills across the board as you pay them.
+                    See at a glance what's due, what's paid, and what's left
+                    before your next payday. Nothing leaves your browser.
+                </p>
+            </div>
+        </section>
+
+        <section class="section planner-main">
+            <div class="section-container">
+                <!-- Income / summary -->
+                <div class="cf-summary">
+                    <label class="cf-income">
+                        <span>Monthly take-home pay ($)</span>
+                        <input type="number" id="monthlyIncome" min="0" step="100" value="0" placeholder="e.g. 8000">
+                    </label>
+                    <label class="cf-income">
+                        <span>Next payday</span>
+                        <input type="date" id="payday">
+                    </label>
+                    <div class="cf-stat"><span>Upcoming bills</span><strong id="statUpcoming">$0</strong></div>
+                    <div class="cf-stat"><span>Paid this cycle</span><strong id="statPaid">$0</strong></div>
+                    <div class="cf-stat cf-stat--left"><span>Left after upcoming bills</span><strong id="statLeft">$0</strong></div>
+                </div>
+                <p class="cf-forecast" id="forecastText"></p>
+
+                <!-- Add bill -->
+                <form class="planner-card cf-add" id="addBillForm">
+                    <h2><i class="fas fa-plus"></i> Add a bill</h2>
+                    <div class="cf-add-grid">
+                        <label class="field"><span>Bill name</span><input type="text" id="billName" placeholder="Mortgage" required maxlength="60"></label>
+                        <label class="field"><span>Amount ($)</span><input type="number" id="billAmount" min="0.01" step="0.01" placeholder="5996" required></label>
+                        <label class="field"><span>Due date</span><input type="date" id="billDue" required></label>
+                        <label class="field"><span>Repeats</span>
+                            <select id="billRecurs">
+                                <option value="monthly">Monthly</option>
+                                <option value="once">One-time</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Add bill</button>
+                    <button type="button" class="btn btn-outline" id="sampleBtn"><i class="fas fa-flask"></i> Try sample data</button>
+                    <span class="cf-sample-info" id="sampleInfo" hidden></span>
+                    <button type="button" class="btn btn-outline" id="clearAllBtn">Clear all</button>
+                    <button type="button" class="btn btn-outline" id="dedupeBtn"><i class="fas fa-clone"></i> Remove duplicates</button>
+                </form>
+
+                <!-- Board -->
+                <div class="cf-board" id="board">
+                    <div class="cf-column" data-status="upcoming">
+                        <h3><i class="fas fa-calendar"></i> Upcoming <span class="cf-count" id="countUpcoming">0</span></h3>
+                        <div class="cf-cards" id="colUpcoming"></div>
+                    </div>
+                    <div class="cf-column" data-status="due">
+                        <h3><i class="fas fa-clock"></i> Due soon <span class="cf-count" id="countDue">0</span></h3>
+                        <p class="cf-col-note">Due in the next 7 days</p>
+                        <div class="cf-cards" id="colDue"></div>
+                    </div>
+                    <div class="cf-column" data-status="paid">
+                        <h3><i class="fas fa-check"></i> Paid <span class="cf-count" id="countPaid">0</span></h3>
+                        <div class="cf-cards" id="colPaid"></div>
+                    </div>
+                </div>
+                <p class="cf-hint">Tip: drag a card between columns, or use the buttons on a card. Due-soon is automatic — a bill moves there when its due date is within 7 days. Marking a monthly bill paid keeps it in Paid and creates one copy for next month — never a second copy. Moving it back removes that next-month copy.</p>
+            </div>
+        </section>
+
+        <section class="section section-alt planner-faq">
+            <div class="section-container">
+                <h2 class="section-title">How it works</h2>
+                <div class="faq-grid">
+                    <div class="faq-item"><h3><i class="fas fa-lock"></i> Is my data private?</h3><p>Yes. Bills are saved only in your browser (localStorage). No account, no server, no tracking.</p></div>
+                    <div class="faq-item"><h3><i class="fas fa-arrows-left-right"></i> What counts as due soon?</h3><p>Any unpaid bill due within the next 7 days. It moves back to Upcoming if you change the due date.</p></div>
+                    <div class="faq-item"><h3><i class="fas fa-rotate"></i> What happens when I mark a monthly bill paid?</h3><p>It stays in Paid for this cycle, and a new Upcoming copy is created for next month with the due date advanced by one month.</p></div>
+                    <div class="faq-item"><h3><i class="fas fa-scale-balanced"></i> Is this financial advice?</h3><p>No — this is an educational organizer. It shows cash flow, it does not tell you what to pay or when.</p></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand"><a href="../index.html" class="footer-logo">V<span class="logo-dot">.</span></a><p>Building, writing, and sharing — one commit at a time.</p></div>
+            <div class="footer-nav"><h4>Navigate</h4><a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../projects.html">Projects</a><a href="../tools.html">Tools</a><a href="../about.html">About</a></div>
+            <div class="footer-social"><h4>Connect</h4><div class="social-icons"><a href="https://github.com/vinayduvvada" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a><a href="https://linkedin.com/in/vinayduvvada" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a><a href="mailto:vinay.chowdary518@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a></div></div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2025-2026 Vinay Duvvada. All rights reserved.</p></div>
+    </footer>
+
+    <script src="../js/theme.js"></script>
+    <script src="../js/nav.js"></script>
+    <script src="../js/cash-flow-kanban.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Why AI Agents Fail in Production">
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+  <rect x="0" y="0" width="1200" height="6" fill="#e50914"/>
+  <circle cx="1020" cy="140" r="180" fill="#e50914" opacity="0.08"/>
+  <circle cx="180" cy="520" r="140" fill="#e50914" opacity="0.06"/>
+  <text x="80" y="110" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="600" fill="#e50914" letter-spacing="3">AI AGENTS IN PRODUCTION</text>
+  <text x="80" y="190" font-family="Inter, Arial, sans-serif" font-size="64" font-weight="800" fill="#e5e5e5">Why AI Agents</text>
+  <text x="80" y="260" font-family="Inter, Arial, sans-serif" font-size="64" font-weight="800" fill="#e5e5e5">Fail in Production</text>
+  <text x="80" y="320" font-family="Inter, Arial, sans-serif" font-size="28" fill="#8c8c8c">Context debt, compounding errors, and the fix</text>
+  <!-- broken chain diagram -->
+  <g stroke="#e5e5e5" stroke-width="3" fill="none">
+    <rect x="80" y="400" width="90" height="56" rx="12" stroke="#e50914"/>
+    <rect x="210" y="400" width="90" height="56" rx="12"/>
+    <rect x="340" y="400" width="90" height="56" rx="12"/>
+    <rect x="470" y="400" width="90" height="56" rx="12" stroke="#e50914"/>
+  </g>
+  <line x1="170" y1="428" x2="210" y2="428" stroke="#e5e5e5" stroke-width="3"/>
+  <line x1="300" y1="428" x2="330" y2="428" stroke="#e50914" stroke-width="3" stroke-dasharray="8 8"/>
+  <line x1="430" y1="428" x2="470" y2="428" stroke="#e5e5e5" stroke-width="3"/>
+  <text x="80" y="490" font-family="Inter, Arial, sans-serif" font-size="20" fill="#8c8c8c">Plan → Tool → Tool → Result</text>
+  <text x="330" y="490" font-family="Inter, Arial, sans-serif" font-size="20" fill="#e50914">one bad step breaks the chain</text>
+  <text x="80" y="570" font-family="Inter, Arial, sans-serif" font-size="20" fill="#8c8c8c">Vinay Duvvada — November 11, 2026</text>
+</svg>

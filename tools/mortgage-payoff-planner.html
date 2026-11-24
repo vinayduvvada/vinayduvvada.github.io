@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mortgage Payoff Planner — Free Calculator | Vinay Duvvada</title>
+    <meta name="description" content="Free mortgage payoff planner. See your monthly payment, payoff date, total interest, and how much extra principal saves you. 100% free, private, and runs entirely in your browser — no data leaves your device.">
+    <meta property="og:title" content="Mortgage Payoff Planner — Free Calculator">
+    <meta property="og:description" content="See your payoff date and interest saved with extra principal payments. Free, private, no sign-up.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/mortgage-planner.css">
+</head>
+<body>
+    <!-- Header — same as index.html, with Tools added -->
+    <header class="header" id="header">
+        <nav class="navbar">
+            <a href="../index.html" class="logo">V<span class="logo-dot">.</span></a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="../index.html">Home</a>
+                <a href="../blog.html">Blog</a>
+                <a href="../projects.html">Projects</a>
+                <a href="../tools.html" class="active">Tools</a>
+                <a href="../about.html">About</a>
+            </div>
+            <button class="theme-toggle" aria-label="Dark theme" title="Dark"><i class="fas fa-moon"></i></button>
+        </nav>
+    </header>
+
+    <main class="planner-page">
+        <section class="section planner-hero">
+            <div class="section-container">
+                <p class="planner-eyebrow"><i class="fas fa-home"></i> Free tool &middot; No sign-up &middot; Private by design</p>
+                <h1 class="planner-title">Mortgage Payoff Planner</h1>
+                <p class="planner-subtitle">
+                    Enter your balance, rate, and term. See your monthly payment, payoff date,
+                    and exactly how much interest an extra principal payment saves you.
+                    Everything runs in your browser — nothing is uploaded or stored on a server.
+                </p>
+
+                <div class="planner-presets" role="group" aria-label="Presets">
+                    <button type="button" class="preset-btn" data-preset="mine">
+                        <i class="fas fa-star"></i> My case: $1M &middot; 6% &middot; 30 yrs
+                    </button>
+                    <button type="button" class="preset-btn" data-preset="seven">
+                        <i class="fas fa-bolt"></i> Pay off in 7 years
+                    </button>
+                    <button type="button" class="preset-btn" data-preset="reset">
+                        <i class="fas fa-rotate-left"></i> Reset
+                    </button>
+                    <button type="button" class="preset-btn" data-preset="arm">
+                        <i class="fas fa-percent"></i> ARM: 5/1 &middot; 6% &middot; $1M
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section planner-main">
+            <div class="section-container planner-grid">
+
+                <!-- Inputs -->
+                <form class="planner-card planner-form" id="plannerForm" novalidate>
+                    <h2><i class="fas fa-sliders"></i> Your mortgage</h2>
+
+                    <label class="field">
+                        <span>Loan balance remaining <span class="field-hint">$</span></span>
+                        <input type="number" id="balance" min="1000" max="100000000" step="1000" value="1000000" required>
+                    </label>
+
+                    <div class="field-row">
+                        <label class="field">
+                            <span>Annual interest rate <span class="field-hint">%</span></span>
+                            <input type="number" id="rate" min="0" max="30" step="0.01" value="6" required>
+                        </label>
+                        <label class="field">
+                            <span>Remaining term <span class="field-hint">years</span></span>
+                            <input type="number" id="termYears" min="1" max="50" step="1" value="30" required>
+                        </label>
+                    </div>
+
+                    <label class="field">
+                        <span>Loan type</span>
+                        <select id="loanType">
+                            <option value="fixed" selected>Fixed rate</option>
+                            <option value="arm">Adjustable-rate (ARM)</option>
+                        </select>
+                    </label>
+
+                    <div class="arm-fields" id="armFields" hidden>
+                        <div class="field-row">
+                            <label class="field"><span>Fixed phase <span class="field-hint">years</span></span><input type="number" id="fixedYears" min="1" max="20" step="1" value="5"></label>
+                            <label class="field"><span>Adjusts every <span class="field-hint">years</span></span><input type="number" id="adjInterval" min="1" max="5" step="1" value="1"></label>
+                        </div>
+                        <div class="field-row">
+                            <label class="field"><span>Index rate <span class="field-hint">% (e.g. SOFR)</span></span><input type="number" id="indexRate" min="0" max="30" step="0.01" value="4"></label>
+                            <label class="field"><span>Margin <span class="field-hint">%</span></span><input type="number" id="margin" min="0" max="10" step="0.01" value="2.25"></label>
+                        </div>
+                        <div class="field-row">
+                            <label class="field"><span>Initial cap <span class="field-hint">% at 1st adjustment</span></span><input type="number" id="initialCap" min="0" max="10" step="0.01" value="2"></label>
+                            <label class="field"><span>Periodic cap <span class="field-hint">% per adjustment</span></span><input type="number" id="periodicCap" min="0" max="10" step="0.01" value="1"></label>
+                            <label class="field"><span>Lifetime cap <span class="field-hint">% over initial rate</span></span><input type="number" id="lifetimeCap" min="0" max="15" step="0.01" value="5"></label>
+                        </div>
+                        <small class="field-note">After the fixed phase, rate = index + margin, capped as above. The index is held constant in this projection — it does not forecast future index moves. Payment is re-calculated over the remaining term at each adjustment.</small>
+                    </div>
+
+                    <label class="field">
+                        <span>Extra principal per month <span class="field-hint">$ — optional</span></span>
+                        <input type="number" id="extraMonthly" min="0" max="1000000" step="50" value="0">
+                        <small class="field-note">This is on top of your normal payment, applied straight to principal.</small>
+                    </label>
+
+                    <div class="field-row">
+                        <label class="field">
+                            <span>Start month</span>
+                            <input type="month" id="startMonth" value="2026-11">
+                        </label>
+                        <label class="field">
+                            <span>Target payoff <span class="field-hint">years — optional</span></span>
+                            <input type="number" id="targetYears" min="1" max="50" step="1" placeholder="e.g. 7">
+                        </label>
+                    </div>
+
+                    <p class="form-error" id="formError" role="alert" hidden></p>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-calculator"></i> Calculate</button>
+                        <button type="button" class="btn btn-outline" id="copyLinkBtn"><i class="fas fa-link"></i> Copy link</button>
+                    </div>
+                    <p class="form-note" id="copyNote" hidden>Link copied — it contains only the numbers above, no personal data.</p>
+                </form>
+
+                <!-- Results -->
+                <div class="planner-results" aria-live="polite">
+                    <div class="result-cards">
+                        <div class="result-card result-card--primary">
+                            <span class="result-label">Monthly payment (P&amp;I)</span>
+                            <strong class="result-value" id="resultPayment">$5,996</strong>
+                            <span class="result-sub" id="resultPaymentSub">standard, no extra</span>
+                        </div>
+                        <div class="result-card">
+                            <span class="result-label">Payoff date</span>
+                            <strong class="result-value" id="resultPayoff">—</strong>
+                            <span class="result-sub" id="resultPayoffSub">—</span>
+                        </div>
+                        <div class="result-card">
+                            <span class="result-label">Total interest</span>
+                            <strong class="result-value" id="resultInterest">—</strong>
+                            <span class="result-sub" id="resultInterestSub">—</span>
+                        </div>
+                        <div class="result-card result-card--save">
+                            <span class="result-label">Interest saved vs standard</span>
+                            <strong class="result-value" id="resultSaved">$0</strong>
+                            <span class="result-sub" id="resultSavedSub">Add an extra payment to see savings</span>
+                        </div>
+                    </div>
+
+                    <div class="planner-card target-box" id="targetBox" hidden>
+                        <h3><i class="fas fa-bullseye"></i> Your target</h3>
+                        <p id="targetText"></p>
+                    </div>
+
+                    <div class="planner-card arm-box" id="armBox" hidden>
+                        <h3><i class="fas fa-percent"></i> Your ARM</h3>
+                        <p id="armText"></p>
+                    </div>
+
+                    <div class="charts-grid">
+                        <div class="planner-card chart-card">
+                            <h3><i class="fas fa-chart-line"></i> Balance over time</h3>
+                            <canvas id="balanceChart" width="640" height="260" aria-label="Chart of loan balance over time, standard schedule versus with extra payment"></canvas>
+                            <p class="chart-legend"><span class="legend-standard"></span> Standard schedule &nbsp; <span class="legend-extra"></span> With extra payment</p>
+                        </div>
+                        <div class="planner-card chart-card">
+                            <h3><i class="fas fa-chart-column"></i> Principal vs interest per year</h3>
+                            <canvas id="piChart" width="640" height="260" aria-label="Stacked bar chart of principal versus interest paid each year"></canvas>
+                            <p class="chart-legend"><span class="legend-extra"></span> Principal &nbsp; <span class="legend-standard"></span> Interest</p>
+                        </div>
+                        <div class="planner-card chart-card">
+                            <h3><i class="fas fa-money-bill-wave"></i> Monthly payment over time</h3>
+                            <canvas id="paymentChart" width="640" height="260" aria-label="Chart of monthly payment over time"></canvas>
+                            <p class="chart-legend">Flat for a fixed loan — steps up or down at each ARM adjustment.</p>
+                        </div>
+                        <div class="planner-card chart-card">
+                            <h3><i class="fas fa-coins"></i> Cumulative interest over time</h3>
+                            <canvas id="cumChart" width="640" height="260" aria-label="Chart of cumulative interest paid over time"></canvas>
+                            <p class="chart-legend">Total interest paid so far, year by year.</p>
+                        </div>
+                    </div>
+
+                    <div class="planner-card">
+                        <div class="schedule-head">
+                            <h3><i class="fas fa-table"></i> Amortization schedule</h3>
+                            <div class="schedule-controls">
+                                <button type="button" class="btn btn-outline btn-small" id="toggleScheduleBtn">Show yearly</button>
+                                <button type="button" class="btn btn-outline btn-small" id="exportCsvBtn"><i class="fas fa-download"></i> Export CSV</button>
+                            </div>
+                        </div>
+                        <div class="table-wrap">
+                            <table class="schedule-table">
+                                <thead>
+                                    <tr><th>Period</th><th>Payment</th><th>Principal</th><th>Interest</th><th>Balance</th></tr>
+                                </thead>
+                                <tbody id="scheduleBody"></tbody>
+                            </table>
+                        </div>
+                        <p class="table-note">Yearly view is shown by default. Switch to monthly for the full schedule.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt planner-faq">
+            <div class="section-container">
+                <h2 class="section-title">How it works</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h3><i class="fas fa-lock"></i> Is my data private?</h3>
+                        <p>Yes. All calculations run in your browser with JavaScript. No account, no tracking, no server — your numbers never leave this page. They are saved only in your own browser (localStorage) if you want them remembered.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3><i class="fas fa-coins"></i> What does the payment include?</h3>
+                        <p>Principal and interest only (P&amp;I). It does not include property tax, homeowners insurance, PMI, or HOA fees. Add those separately when you budget the full monthly cost.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3><i class="fas fa-percent"></i> What assumptions does it make?</h3>
+                        <p>Fixed: a fixed rate, monthly payments, and extra payments applied directly to principal. ARM: the rate is fixed for the phase you enter, then index + margin, capped as above, with the payment re-calculated over the remaining term at each adjustment. The index is held constant — the real index will move. If your lender applies extra payments differently, check your loan statement.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3><i class="fas fa-scale-balanced"></i> Is this financial advice?</h3>
+                        <p>No — this is an educational calculator. Paying a mortgage early is a personal decision that depends on your other debts, emergency fund, and goals. Talk to a licensed professional for advice specific to you.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer — same as index.html, with Tools added -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="../index.html" class="footer-logo">V<span class="logo-dot">.</span></a>
+                <p>Building, writing, and sharing — one commit at a time.</p>
+            </div>
+            <div class="footer-nav">
+                <h4>Navigate</h4>
+                <a href="../index.html">Home</a>
+                <a href="../blog.html">Blog</a>
+                <a href="../projects.html">Projects</a>
+                <a href="../tools.html">Tools</a>
+                <a href="../about.html">About</a>
+            </div>
+            <div class="footer-social">
+                <h4>Connect</h4>
+                <div class="social-icons">
+                    <a href="https://github.com/vinayduvvada" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/vinayduvvada" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:vinay.chowdary518@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025-2026 Vinay Duvvada. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/theme.js"></script>
+    <script src="../js/nav.js"></script>
+    <script src="../js/mortgage-planner.js"></script>
+</body>
+</html>

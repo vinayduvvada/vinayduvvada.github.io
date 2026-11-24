@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Evaluating Frontier Models — Benchmarks, effort, and cost, together">
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+  <rect x="0" y="0" width="1200" height="6" fill="#e50914"/>
+  <circle cx="1050" cy="110" r="180" fill="#e50914" opacity="0.08"/>
+  <text x="80" y="120" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="600" fill="#e50914" letter-spacing="3">AI / LLM / EVALUATION</text>
+  <text x="80" y="200" font-family="Inter, Arial, sans-serif" font-size="72" font-weight="800" fill="#e5e5e5">Evaluating Frontier</text>
+  <text x="80" y="280" font-family="Inter, Arial, sans-serif" font-size="72" font-weight="800" fill="#e5e5e5">Models</text>
+  <text x="80" y="340" font-family="Inter, Arial, sans-serif" font-size="30" fill="#8c8c8c">Benchmarks, effort, and cost — together</text>
+  <g>
+    <rect x="80" y="430" width="120" height="120" fill="#1a1a1a" stroke="#2a2a2a"/>
+    <rect x="80" y="490" width="120" height="60" fill="#e50914"/>
+    <rect x="230" y="430" width="120" height="120" fill="#1a1a1a" stroke="#2a2a2a"/>
+    <rect x="230" y="460" width="120" height="90" fill="#e50914" opacity="0.75"/>
+    <rect x="380" y="430" width="120" height="120" fill="#1a1a1a" stroke="#2a2a2a"/>
+    <rect x="380" y="430" width="120" height="120" fill="#e50914" opacity="0.5"/>
+    <text x="80" y="585" font-family="Inter, Arial, sans-serif" font-size="20" fill="#8c8c8c">Score alone is not a verdict.</text>
+  </g>
+  <text x="80" y="610" font-family="Inter, Arial, sans-serif" font-size="18" fill="#8c8c8c">Vinay Duvvada — November 18, 2026</text>
+</svg>

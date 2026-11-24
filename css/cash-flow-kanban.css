@@ -1,0 +1,68 @@
+/* Cash Flow Kanban — uses site variables from css/style.css */
+.planner-page { padding-top: 4.5rem; }
+.planner-hero { padding-bottom: 2rem; text-align: center; }
+.planner-eyebrow { color: var(--primary); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 0.75rem; }
+.planner-title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; color: var(--text-bright); letter-spacing: -1px; line-height: 1.1; margin-bottom: 1rem; }
+.planner-subtitle { max-width: 640px; margin: 0 auto 1.75rem; color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; }
+.planner-main { padding-top: 1rem; }
+.planner-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.75rem; margin-bottom: 1.5rem; }
+.planner-card h2 { color: var(--text-bright); font-size: 1.2rem; margin-bottom: 1.25rem; }
+.planner-card h2 i { color: var(--primary); margin-right: 0.4rem; }
+.field { display: block; margin-bottom: 0.5rem; }
+.field > span { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
+.field input, .field select { width: 100%; padding: 0.7rem 0.9rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-card); color: var(--text); font-family: var(--font); font-size: 1rem; outline: none; }
+.field input:focus, .field select:focus { border-color: var(--primary); }
+
+.cf-summary { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.cf-income { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1rem 1.25rem; }
+.cf-income span { display: block; font-size: 0.78rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.4rem; }
+.cf-income input { width: 100%; padding: 0.5rem 0.7rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-card); color: var(--text); font-family: var(--font); font-size: 1rem; }
+.cf-stat { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1rem 1.25rem; }
+.cf-stat span { display: block; font-size: 0.78rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.4rem; }
+.cf-stat strong { font-size: 1.35rem; font-weight: 800; color: var(--text-bright); }
+.cf-stat--left { border-color: rgba(229, 9, 20, 0.45); }
+.cf-forecast { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.5rem; }
+.cf-forecast strong { color: var(--text-bright); }
+
+.cf-add-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.cf-add .btn { margin-right: 0.5rem; margin-bottom: 0.5rem; }
+
+.cf-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; align-items: start; }
+.cf-column { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; min-height: 220px; }
+.cf-column.drag-over { border-color: var(--primary); background: rgba(229, 9, 20, 0.06); }
+.cf-column h3 { color: var(--text-bright); font-size: 1.05rem; margin-bottom: 0.25rem; }
+.cf-column h3 i { color: var(--primary); margin-right: 0.4rem; }
+.cf-count { background: rgba(229, 9, 20, 0.15); color: var(--primary); border-radius: 20px; padding: 0.1rem 0.6rem; font-size: 0.8rem; margin-left: 0.3rem; }
+.cf-col-note { color: var(--text-muted); font-size: 0.82rem; margin-bottom: 0.75rem; }
+.cf-cards { display: flex; flex-direction: column; gap: 0.75rem; }
+.cf-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; cursor: grab; }
+.cf-card.dragging { opacity: 0.5; }
+.cf-card--overdue { border-color: rgba(229, 9, 20, 0.6); }
+.cf-card-top { display: flex; justify-content: space-between; gap: 0.75rem; align-items: start; }
+.cf-card-name { font-weight: 700; color: var(--text-bright); }
+.cf-card-amount { font-weight: 800; color: var(--text-bright); white-space: nowrap; }
+.cf-card-meta { color: var(--text-muted); font-size: 0.85rem; margin-top: 0.35rem; }
+.cf-card-meta .overdue { color: var(--primary); font-weight: 600; }
+.cf-card-actions { display: flex; gap: 0.5rem; margin-top: 0.75rem; flex-wrap: wrap; }
+.cf-mini-btn { background: transparent; border: 1px solid var(--border); color: var(--text-muted); border-radius: 20px; padding: 0.3rem 0.75rem; font-family: var(--font); font-size: 0.8rem; font-weight: 600; cursor: pointer; }
+.cf-mini-btn:hover { border-color: var(--primary); color: var(--primary); }
+.cf-mini-btn--danger:hover { border-color: var(--primary); color: var(--primary); }
+.cf-empty { color: var(--text-muted); font-size: 0.9rem; text-align: center; padding: 1.5rem 0.5rem; border: 1px dashed var(--border); border-radius: var(--radius); }
+.cf-hint { color: var(--text-muted); font-size: 0.88rem; margin-top: 1rem; line-height: 1.6; }
+
+.faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2rem; }
+.faq-item { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; }
+.faq-item h3 { color: var(--text-bright); font-size: 1.05rem; margin-bottom: 0.6rem; }
+.faq-item h3 i { color: var(--primary); margin-right: 0.4rem; }
+.faq-item p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; }
+
+@media (max-width: 960px) {
+  .cf-summary { grid-template-columns: repeat(2, 1fr); }
+  .cf-add-grid { grid-template-columns: 1fr 1fr; }
+  .cf-board { grid-template-columns: 1fr; }
+  .faq-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .cf-summary { grid-template-columns: 1fr; }
+  .cf-add-grid { grid-template-columns: 1fr; }
+}
