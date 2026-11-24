@@ -1,28 +1,51 @@
 // Post page — loads markdown content + nav logic
+
 function getPostIdFromUrl() {
     return new URLSearchParams(window.location.search).get('id');
 }
 
+
 async function loadPost() {
+
     const postId = getPostIdFromUrl();
+
     const postContainer = document.getElementById('postContainer');
+
 
     if (!postId) {
         postContainer.innerHTML = '<div class="error">Post not found</div>';
         return;
     }
 
+
     try {
+
         const metaRes = await fetch(`./posts/${postId}/metadata.json`);
+
         const metadata = await metaRes.json();
 
+
         const contentRes = await fetch(`./posts/${postId}/index.md`);
+
         if (!contentRes.ok) throw new Error(`HTTP ${contentRes.status}`);
+
         const markdown = await contentRes.text();
+
 
         document.title = `${metadata.title} — Vinay Duvvada`;
 
+        // SEO: give each post its own title, description, canonical and OG tags.
+        // (Variable names here match this file: `metadata` and `postId`.)
+        function setMeta(attr, name, value) { var el = document.querySelector('meta[' + attr + '="' + name + '"]'); if (!el) { el = document.createElement('meta'); el.setAttribute(attr, name); document.head.appendChild(el); } el.setAttribute('content', value); }
+        setMeta('name', 'description', metadata.excerpt);
+        setMeta('property', 'og:title', metadata.title);
+        setMeta('property', 'og:description', metadata.excerpt);
+        setMeta('property', 'og:type', 'article');
+        setMeta('property', 'article:published_time', metadata.date);
+        var link = document.querySelector('link[rel="canonical"]'); if (!link) { link = document.createElement('link'); link.rel = 'canonical'; document.head.appendChild(link); } link.href = 'https://vinayduvvada.github.io/post.html?id=' + postId;
+
         const hasMarked = typeof window !== 'undefined' && window.marked && typeof window.marked.parse === 'function';
+
         const contentHtml = hasMarked ? window.marked.parse(markdown) : `<pre>${escapeHtml(markdown)}</pre>`;
 
         postContainer.innerHTML = `
@@ -45,11 +68,14 @@ async function loadPost() {
                 <div class="post-content">${contentHtml}</div>
             </article>
         `;
+
     } catch (error) {
         console.error('Error loading post:', error);
         postContainer.innerHTML = '<div class="error">Failed to load post. <a href="blog.html" style="color: var(--primary);">Back to Blog</a></div>';
     }
+
 }
+
 
 function escapeHtml(str) {
     return String(str)
@@ -60,19 +86,29 @@ function escapeHtml(str) {
         .replace(/'/g, '&#039;');
 }
 
+
 function updateProgressBar() {
     const bar = document.getElementById('progressBar');
+
     if (!bar) return;
+
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+
     bar.style.width = height > 0 ? (winScroll / height) * 100 + '%' : '0%';
 }
 
+
 document.addEventListener('DOMContentLoaded', () => {
     // Nav logic
+
     const header = document.getElementById('header');
+
     const navToggle = document.getElementById('navToggle');
+
     const navLinks = document.getElementById('navLinks');
+
 
     if (header) {
         window.addEventListener('scroll', () => {
@@ -82,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (navToggle && navLinks) {
         navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+
         document.addEventListener('click', (e) => {
             if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
                 navLinks.classList.remove('open');
@@ -89,8 +126,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+
     // Load post + progress bar
+
     loadPost();
+
     window.addEventListener('scroll', updateProgressBar);
+
     updateProgressBar();
+
 });

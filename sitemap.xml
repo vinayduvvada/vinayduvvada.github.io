@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Main pages -->
+  <url><loc>https://vinayduvvada.github.io/</loc><lastmod>2026-11-23</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://vinayduvvada.github.io/blog.html</loc><lastmod>2026-11-23</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://vinayduvvada.github.io/projects.html</loc><lastmod>2026-11-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://vinayduvvada.github.io/about.html</loc><lastmod>2026-11-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://vinayduvvada.github.io/tools.html</loc><lastmod>2026-11-23</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <!-- Free tools -->
+  <url><loc>https://vinayduvvada.github.io/tools/mortgage-payoff-planner.html</loc><lastmod>2026-11-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://vinayduvvada.github.io/tools/cash-flow-kanban.html</loc><lastmod>2026-11-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://vinayduvvada.github.io/tools/subscription-leak-finder.html</loc><lastmod>2026-11-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <!-- Projects -->
+  <url><loc>https://vinayduvvada.github.io/project.html?id=custom-search-shortcuts</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://vinayduvvada.github.io/project.html?id=browser_kanban</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://vinayduvvada.github.io/project.html?id=tab-stack</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <!-- Blog posts — newest first. New AI/ML posts are dated Nov 2026; older posts keep no lastmod here, add their real dates if you know them. -->
+  <url><loc>https://vinayduvvada.github.io/post.html?id=agentic-rag-from-vector-search-to-agentic-retrieval</loc><lastmod>2026-11-23</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://vinayduvvada.github.io/post.html?id=evaluating-frontier-models-november-2026</loc><lastmod>2026-11-18</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://vinayduvvada.github.io/post.html?id=why-ai-agents-fail-in-production</loc><lastmod>2026-11-11</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://vinayduvvada.github.io/post.html?id=cross-team-conflict-resolution</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://vinayduvvada.github.io/post.html?id=db-locking-optimistic-pessimistic</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://vinayduvvada.github.io/post.html?id=async-operations-in-enterprise-systems</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://vinayduvvada.github.io/post.html?id=event-driven-architecture-patterns</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://vinayduvvada.github.io/post.html?id=distributed-systems-consistency-models</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://vinayduvvada.github.io/post.html?id=microservices-vs-monolith</loc><lastmod>2025-05-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://vinayduvvada.github.io/post.html?id=load-balancer-deep-dive</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+</urlset>
